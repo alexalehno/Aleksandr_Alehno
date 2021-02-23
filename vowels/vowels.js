@@ -13,17 +13,15 @@ function countVowels(p) {
   const vowelLetters = "ауоыиэяюёе";
   let vowel = 0;
 
-  for (let letter of p.toLowerCase()) {
+  for (let letter of p.toLowerCase())
     if (vowelLetters.includes(letter)) vowel++;
-  }
 
   return `в строке "${p}" - ${vowel} ${getNumWorld(
     vowel,
     "гласная",
     "гласных",
     "гласных"
-  )}  
-  ${getNumWorld(vowel, "буква", "буквы", "букв")}`;
+  )} ${getNumWorld(vowel, "буква", "буквы", "букв")}`;
 }
 
 console.log(countVowels(str));
