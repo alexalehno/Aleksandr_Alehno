@@ -1,4 +1,4 @@
-function randomDiap(n, m) {
+function randomRange(n, m) {
   return Math.floor(Math.random() * (m - n + 1)) + n;
 }
 
@@ -14,15 +14,20 @@ function mood(colorsCount) {
     "фиолетовый",
   ];
 
-  let usedColors = {};
-
   console.log("цветов: " + colorsCount);
 
-  for (let i = 1; i <= colorsCount; i++) {
-    let colorName = colors[randomDiap(1, 7)];
-    if (!(colorName in usedColors))
-      (usedColors[colorName] = true), console.log(colorName);
+  let usedColors = new Set();
+
+  while (usedColors.size !== colorsCount) {
+    if (colorsCount > colors.length - 1) {
+      console.log(`Количество цветов не должно превышать ${colors.length - 1}`);
+      break;
+    }
+    let colorName = colors[randomRange(1, 7)];
+    usedColors.add(colorName);
   }
+
+  usedColors.forEach((value) => console.log(value));
 }
 
-mood(5);
+mood(4);
