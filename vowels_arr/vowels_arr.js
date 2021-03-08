@@ -7,7 +7,7 @@ function countVowelsWithForEach(p) {
   return vowel;
 }
 
-console.log(`forEach: ${countVowelsWithForEach(str)}`);
+console.log(`forEach: гласных в "${str}" => ${countVowelsWithForEach(str)}`);
 
 // .............................................................
 
@@ -17,7 +17,7 @@ function countVowelsWithFilter(p) {
 
 // ...............................................................
 
-console.log(`filter: ${countVowelsWithFilter(str)}`);
+console.log(`filter: гласных в "${str}" => ${countVowelsWithFilter(str)}`);
 
 
 function countVowelsWithReduce(p) {
@@ -25,5 +25,5 @@ function countVowelsWithReduce(p) {
   return p.toLowerCase().split("").reduce((previousValue, item) => previousValue + vowelLetters.includes(item), 0);
 }
 
-console.log(`reduce: ${countVowelsWithReduce(str)}`);
+console.log(`reduce: гласных в "${str}" => ${countVowelsWithReduce(str)}`);
 
