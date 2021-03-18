@@ -30,7 +30,7 @@ function HachStorageFunc() {
 
 let drinkStorage = new HachStorageFunc();
 
-addInfo.addEventListener("click", function () {
+document.querySelector("#addInfo").addEventListener("click", function () {
   let isAlcoholic;
   let drinkRecipe;
   let drinkName = prompt("введите название напитка", "сок").trim().toLowerCase();
@@ -48,7 +48,7 @@ addInfo.addEventListener("click", function () {
   });
 });
 
-getInfo.addEventListener("click", function () {
+document.querySelector("#getInfo").addEventListener("click", function () {
   let drinkName = prompt("введите название напитка", "сок").trim().toLowerCase();
   if (drinkName in drinkStorage) {
     let drinkInfo = drinkStorage.getValue(drinkName);
@@ -58,14 +58,14 @@ getInfo.addEventListener("click", function () {
   } else alert(`такого напитка "${drinkName}" нет`);
 });
 
-deleteInfo.addEventListener("click", function () {
+document.querySelector("#deleteInfo").addEventListener("click", function () {
   let drinkName = prompt("введите название напитка", "сок").trim().toLowerCase();
   drinkStorage.deleteValue(drinkName)
     ? console.log(`напиток "${drinkName}" удален`)
     : alert(`такого напитка "${drinkName}" нет`);
 });
 
-allInfo.addEventListener("click", function () {
+document.querySelector("#allInfo").addEventListener("click", function () {
   let allName = drinkStorage.getKeys();
   allName.length !== 0
     ? allName.forEach((name, index) => console.log(`${index + 1}: ${name}`))

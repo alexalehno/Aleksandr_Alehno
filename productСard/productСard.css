@@ -1,0 +1,16 @@
+input {
+  margin: 5px;
+}
+
+.item {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  background-color: rgb(138, 212, 212);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.item img {
+  height: 100px;
+}
