@@ -9,26 +9,33 @@
 
   <body>
     <div class="container">
-      <form action="#">
-        <label>id</label>
-        <input id="id" name="id"  value="1"/>
-
+      <form name="form" id="formData" action="#">
         <label>img</label>
         <input
           name="img"
           value="https://cdn.pixabay.com/photo/2019/07/12/18/55/radio-4333412__340.jpg "
         />
-        
+
         <label>price</label>
         <input name="price" value="5000" />
 
         <label>description</label>
-        <input name="description" value="description " />
+        <input
+          name="description"
+          value="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, quis."
+        />
 
-        <button id="button">Click</button>
-        <button id="buttonDelete">delete</button>
+        <button id="saveBtn">save</button>
+        <button id="renderBtn">render</button>
+        <button id="deleteBtn">delete</button>
       </form>
+
+      
     </div>
+
+    <hr />
+    <h2>Корзина</h2>
+    <div class="basket"></div>
 
     <script src="./productСard.js"></script>
   </body>
