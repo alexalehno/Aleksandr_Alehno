@@ -16,7 +16,7 @@ function buildWrapper(p) {
 
     for (const key in object) el.setAttribute(key, object[key]);
     el.innerHTML = str;
-    document.body.prepend(el);
+    document.body.append(el);
 
     return el.outerHTML;
   };
