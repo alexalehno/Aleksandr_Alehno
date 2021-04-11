@@ -10,6 +10,7 @@ function getData(arr) {
     .querySelectorAll("input")
     .forEach((el) => (objData[el.name] = el.value));
   arr.push(objData);
+  
   arr.forEach((el, i) => (el.id = i));
   console.log(arr);
 }

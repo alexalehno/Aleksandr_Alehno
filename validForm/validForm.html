@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./validForm.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>ДЗ: validForm</h1>
+    <hr />
+
+    <form name="formV" action="https://fe.it-academy.by/TestForm.php" novalidate>
+
+      <label>Разработчики:</label>
+      <input type="text" name="developers" />
+      <span></span>
+
+      <label>Название сайта:</label>
+      <input type="text" name="site_name" />
+      <span></span>
+
+      <label>URL сайта:</label>
+      <input type="text" name="site_url" />
+      <span></span>
+
+      <label>Дата запуска сайта:</label>
+      <input type="date" name="launch_date" />
+      <span></span>
+
+      <label>Посетителей в сутки:</label>
+      <input type="number" name="visitors" />
+      <span></span>
+
+      <label>E-mail для связи:</label>
+      <input type="email" name="email" />
+      <span></span>
+
+      <label>Рубрика каталога: </label>
+      
+      <select name="division">
+        <option value="1">здоровье</option>
+        <option value="2">домашний уют</option>
+        <option value="3" selected>бытовая техника</option>
+      </select>
+      <span></span>
+
+      <label>Размещение:</label>
+      <label><input type="radio" name="payment" value="11" checked />бесплатное</label>
+      <label><input type="radio" name="payment" value="22" />платное</label>
+      <label><input type="radio" name="payment" value="33" />VIP</label>
+
+      <label>Разрешить отзывы:<input type="checkbox" name="votes" /> </label>
+
+      <label>Описание сайта:</label>
+      <textarea name="description"></textarea>
+
+      <button>Опубликовать</button>
+    </form>
+
+    <script src="./validForm.js"></script>
+  </body>
+</html>
