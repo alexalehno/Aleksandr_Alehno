@@ -2,20 +2,22 @@
 
 let images = document.querySelectorAll("img");
 let zIndx = 999;
+let placeArr = [];
 
-images.forEach((el) => {
-  el.addEventListener("mousedown", down);
-  el.addEventListener("dragstart", (e) => e.preventDefault());
-});
+for (let i = 0; i < images.length; i++) {
+  images[i].addEventListener("mousedown", down);
+  images[i].addEventListener("dragstart", (e) => e.preventDefault());
+
+  placeArr.push(images[i].offsetLeft + images[i].width * i);
+  images[i].style.position = "absolute";
+  images[i].style.left = `${placeArr[i]}px`;
+}
 
 function down(e) {
   let self = this;
   let shiftX = e.clientX - self.getBoundingClientRect().left;
   let shiftY = e.clientY - self.getBoundingClientRect().top;
 
-  move(e);
-
-  self.style.position = "absolute";
   self.style.cursor = "grabbing";
   self.style.zIndex = zIndx;
 
