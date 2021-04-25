@@ -2,7 +2,7 @@
   position: relative;
   width: 80%;
   height: 80vh;
-  margin: 20px auto;
+  margin: 15px auto;
   background-color: cadetblue;
 }
 
@@ -11,4 +11,9 @@
   width: 100px;
   height: 100px;
   background-color: rgb(75, 11, 11);
+}
+
+p {
+  display: inline-block;
+  margin: 0 20px;
 }

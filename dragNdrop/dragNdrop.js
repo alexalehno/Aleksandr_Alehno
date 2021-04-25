@@ -2,15 +2,14 @@
 
 let images = document.querySelectorAll("img");
 let zIndx = 999;
-let placeArr = [];
 
 for (let i = 0; i < images.length; i++) {
   images[i].addEventListener("mousedown", down);
   images[i].addEventListener("dragstart", (e) => e.preventDefault());
 
-  placeArr.push(images[i].offsetLeft + images[i].width * i);
   images[i].style.position = "absolute";
-  images[i].style.left = `${placeArr[i]}px`;
+  images[i].style.zIndex = zIndx;
+  images[i].style.left = `${images[i].width * i}px`;
 }
 
 function down(e) {
@@ -19,15 +18,11 @@ function down(e) {
   let shiftY = e.clientY - self.getBoundingClientRect().top;
 
   self.style.cursor = "grabbing";
-  self.style.zIndex = zIndx;
-
-  document.addEventListener("mousemove", move);
-  self.addEventListener("mouseup", up);
+  self.style.zIndex = ++zIndx;
 
   function move(e) {
-    self.style.zIndex = zIndx++;
-    self.style.left = e.pageX - shiftX + "px";
-    self.style.top = e.pageY - shiftY + "px";
+    self.style.left = `${e.pageX - shiftX}px`;
+    self.style.top = `${e.pageY - shiftY}px`;
   }
 
   function up() {
@@ -35,4 +30,7 @@ function down(e) {
     document.removeEventListener("mousemove", move);
     self.removeEventListener("mouseup", up);
   }
+
+  document.addEventListener("mousemove", move);
+  self.addEventListener("mouseup", up);
 }
