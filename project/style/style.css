@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  background-color: burlywood;
+}
+
+a {
+  display: block;
+  width: 150px;
+  margin: 20px;
+  padding: 13px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #007bff;
+  background-color: rgb(219, 219, 219);
+  box-shadow: 0 0 4px black;
+  transition: 0.1;
+}
+
+a:hover {
+  color: brown;
+  background-color: rgb(179, 128, 51);
+}
+
+.app {
+  display: flex;
+  text-align: center;
+}
+
+.sidebar {
+  margin: 20px;
+}
+
+p {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.field {
+  position: relative;
+  display: inline-block;
+  margin: 0  auto;
+}
+
+.ball {
+  position: absolute;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgb(75, 11, 11);
+}

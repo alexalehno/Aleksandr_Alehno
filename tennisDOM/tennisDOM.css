@@ -1,0 +1,39 @@
+.field {
+  position: relative;
+  margin: 0 auto;
+  background-color: rgb(217, 226, 133);
+}
+
+.ball {
+  position: absolute;
+  display: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+
+.score {
+  width: 100px;
+  height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 26px;
+}
+
+.racket {
+  position: absolute;
+  width: 10px;
+  height: 100px;
+}
+
+.left {
+  left: 0%;
+  background-color: black;
+}
+
+.right {
+  right: 0%;
+  background-color: blue;
+}
