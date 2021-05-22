@@ -12,7 +12,7 @@ const BACKGROUND_COLOR = "black";
 let ROWS = 11;
 let COLUMNS = ROWS;
 let CELL_SIZE = 55;
-let PADDING = CELL_SIZE;
+let PADDING = 55;
 
 let matrix = null;
 let canvas = null;
@@ -48,42 +48,6 @@ const isValidMaze = () => {
 };
 
 // .....................................
-
-const moveTractor = (tractor) => {
-  const directions = [];
-
-  if (tractor.x > 0) directions.push([-2, 0]);
-  if (tractor.x < COLUMNS - 1) directions.push([2, 0]);
-  if (tractor.y > 0) directions.push([0, -2]);
-  if (tractor.y < ROWS - 1) directions.push([0, 2]);
-
-  const [dx, dy] = getRandomItem(directions);
-
-  tractor.x += dx;
-  tractor.y += dy;
-
-  if (!matrix[tractor.y][tractor.x]) {
-    matrix[tractor.y][tractor.x] = true;
-    matrix[tractor.y - dy / 2][tractor.x - dx / 2] = true;
-  }
-};
-
-const createMatrix = (columns, rows) => {
-  const matrix = [];
-
-  for (let y = 0; y < rows; y++) {
-    const row = [];
-
-    for (let x = 0; x < columns; x++) {
-      row.push(false);
-    }
-
-    matrix.push(row);
-  }
-
-  return matrix;
-};
-
 const drawMaze = () => {
   canvas.width = PADDING * 2 + COLUMNS * CELL_SIZE;
   canvas.height = PADDING * 2 + ROWS * CELL_SIZE;
@@ -117,20 +81,57 @@ const drawMaze = () => {
   );
 };
 
-// ///////////////////////////////////////////////112
+const moveTractor = (tractor) => {
+  const directions = [];
+
+  if (tractor.x > 0) directions.push([-2, 0]);
+  if (tractor.x < COLUMNS - 1) directions.push([2, 0]);
+  if (tractor.y > 0) directions.push([0, -2]);
+  if (tractor.y < ROWS - 1) directions.push([0, 2]);
+
+  const [dx, dy] = getRandomItem(directions);
+
+  tractor.x += dx;
+  tractor.y += dy;
+
+  if (!matrix[tractor.y][tractor.x]) {
+    matrix[tractor.y][tractor.x] = true;
+    matrix[tractor.y - dy / 2][tractor.x - dx / 2] = true;
+  }
+};
+
+const createMatrix = (columns, rows) => {
+  
+  const matrix = [];
+
+  for (let y = 0; y < rows; y++) {
+    const row = [];
+
+    for (let x = 0; x < columns; x++) {
+      row.push(false);
+    }
+
+    matrix.push(row);
+  }
+
+  return matrix;
+};
+// ///////////////////////////////////////////////
+
 async function buildMaze() {
+  let tractors = null;
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
 
-  const tractors = [];
+
+  matrix = createMatrix(COLUMNS, ROWS);
+  matrix[0][0] = true;
+
+  tractors = [];
 
   for (let i = 0; i < TRACTOR_NUMBER; i++) {
     tractors.push({ x: 0, y: 0 });
   }
-
-  matrix = createMatrix(COLUMNS, ROWS);
-
-  matrix[0][0] = true;
 
   while (!isValidMaze()) {
     for (const tractor of tractors) {

@@ -1,87 +1,49 @@
 "use strict";
 
+const mainPage = document.querySelector(".main__page");
+const gamePage = document.querySelector(".game__page");
+const levelBox = document.querySelector(".level__box");
+
 const startBtn = document.querySelector("#start");
-const levelBtn = document.querySelector("#level");
+const levelMainPageBtn = document.querySelector("#main__page_level");
+const levelGamePageBtn = document.querySelector("#game__page_level");
 
-const mainBtn = document.querySelector("#main");
-const newGameBtn = document.querySelector("#new__game");
-const pauseBtn = document.querySelector("#pause");
+const mainPageBtn = document.querySelector("#main__page_btn");
+const newGameBtn = document.querySelector("#new__game_btn");
+const pauseBtn = document.querySelector("#pause_btn");
 
-const field = document.querySelector(".field");
-const ball = document.querySelector(".ball");
 const controlBtn = document.querySelectorAll(".control__btn");
 const levelСhoiceBtn = document.querySelectorAll(".level__btn");
 
-const levelBox = document.querySelector(".level__box");
+const field = document.querySelector(".field");
+const ball = document.querySelector(".ball");
 
-const levelСhoice = {
-  Easy: { quantityCell: 11, sizeCell: 55, sizeBall: 40 },
-  Normal: { quantityCell: 17, sizeCell: 55, sizeBall: 40 },
-  Hardcore: { quantityCell: 31, sizeCell: 38, sizeBall: 25 },
+// ................................................................
+
+const levelСhoiceStore = {
+  Easy: { quantityCells: 11, sizeCell: 55, sizeBall: 40 },
+  Normal: { quantityCells: 17, sizeCell: 55, sizeBall: 40 },
+  Hardcore: { quantityCells: 31, sizeCell: 38, sizeBall: 25 },
 };
 
-function setLevel(e) {
-  function setChoice(p) {
-    if (e.target.innerText === p) {
-      for (let key in levelСhoice) {
-        if (key === p) {
-          CELL_SIZE = levelСhoice[key].sizeCell;
-          ROWS = levelСhoice[key].quantityCell;
-          COLUMNS = levelСhoice[key].quantityCell;
-        }
-      }
-
-      levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
-      e.target.classList.toggle("active");
-    }
-  }
-
-  console.log(levelСhoiceBtn);
-
-  setChoice("Easy");
-  setChoice("Normal");
-  setChoice("Hardcore");
-  newGame();
-}
-
+let timer = null;
 let x = null;
 let y = null;
 
+let sizeBall = 50;
 let incr = 2;
-let timer = null;
 
-function showHideLevelBox() {
-  levelBox.style.opacity = 1;
-  levelBox.style.zIndex = 99;
-
-  document.querySelector(".close__level-box").addEventListener("click", () => {
-    levelBox.style.opacity = "";
-    levelBox.style.zIndex = "";
-  });
-}
-
-function mouseClick() {
-  this.style.backgroundColor = "black";
-
-  this.addEventListener("mouseup", () => {
-    this.style.backgroundColor = "";
-  });
-}
+// ...................................................................
 
 const stop = () => cancelAnimationFrame(timer);
 
 const update = () => {
+  ball.style.width = `${sizeBall}px`;
+  ball.style.height = `${sizeBall}px`;
+
   ball.style.left = `${x}px`;
   ball.style.top = `${y}px`;
 };
-
-function initialCoord() {
-  x = 5 + PADDING;
-  y = 5 + PADDING;
-  update();
-}
-
-initialCoord();
 
 const direction = (e) => {
   if (e.code) {
@@ -147,30 +109,90 @@ const motion = (e) => {
   timer = requestAnimationFrame(() => motion(e));
 };
 
-update();
+// ...........................................................
 
-function newGame() {
-  stop();
-  initialCoord();
-  buildMaze();
+function mouseClick() {
+  this.style.backgroundColor = "black";
+
+  this.addEventListener("mouseup", () => {
+    this.style.backgroundColor = "";
+  });
+}
+
+function initialSet() {
+  x = 5 + PADDING;
+  y = 5 + PADDING;
+  update();
 }
 
 function switchPages() {
-  let mainPage = document.querySelector(".main__page");
-  let gamePage = document.querySelector(".game__page");
-
   mainPage.classList.toggle("hidden");
   gamePage.classList.toggle("hidden");
 }
 
-startBtn.addEventListener("click", switchPages);
-mainBtn.addEventListener("click", switchPages);
-newGameBtn.addEventListener("click", newGame);
+function showHideLevelBox() {
+  levelBox.style.opacity = 1;
+  levelBox.style.zIndex = 99;
 
-levelBtn.addEventListener("click", showHideLevelBox);
+  levelBox.style.top = `${55}%`;
 
-pause.addEventListener("click", stop);
+  if (mainPage.classList.contains("hidden")) {
+    levelBox.style.left = `${15}%`;
+  }
+
+  document.querySelector(".close__level-box").addEventListener("click", () => {
+    levelBox.style.opacity = "";
+    levelBox.style.zIndex = "";
+    levelBox.style.top = "";
+    levelBox.style.left = "";
+  });
+}
+
+function setLevel(e) {
+  function setChoice(p) {
+    if (e.target.innerText === p) {
+      for (let key in levelСhoiceStore) {
+        if (key === p) {
+          CELL_SIZE = levelСhoiceStore[key].sizeCell;
+          ROWS = levelСhoiceStore[key].quantityCells;
+          COLUMNS = levelСhoiceStore[key].quantityCells;
+          PADDING = levelСhoiceStore[key].sizeCell;
+          sizeBall = levelСhoiceStore[key].sizeBall;
+        }
+      }
+
+      levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
+      e.target.classList.toggle("active");
+      newGame();
+    }
+  }
+
+  setChoice("Easy");
+  setChoice("Normal");
+  setChoice("Hardcore");
+}
+
+function newGame() {
+  stop();
+  initialSet();
+  buildMaze();
+}
+
+initialSet();
+
+update();
+
+// ........................................................
 
 window.addEventListener("keydown", (e) => motion(e));
-controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));
+
+levelMainPageBtn.addEventListener("click", showHideLevelBox);
+levelGamePageBtn.addEventListener("click", showHideLevelBox);
+
+startBtn.addEventListener("click", switchPages);
+mainPageBtn.addEventListener("click", switchPages);
+newGameBtn.addEventListener("click", newGame);
+pauseBtn.addEventListener("click", stop);
+
 levelBox.addEventListener("click", (e) => setLevel(e));
+controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));
