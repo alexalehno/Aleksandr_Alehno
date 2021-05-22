@@ -4,23 +4,59 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style/style.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="app">
+      <div class="main__page">
+        <div class="header">
+          <h1>MAZE RUNNER</h1>
+        </div>
 
-     <div class="sidebar">
-       <a href="#"id="start">New Game</a>
-       <a href="#"id="pause">Pause</a>
+        <ul>
+          <li><a href="#" class="control__btn" id="start">Start</a></li>
+          <li><a href="#" class="control__btn" id="level">Level</a></li>
+          <li><a href="#" class="control__btn" id="sound">Sound</a></li>
+        </ul>
+
+        <div class="level__box">
+          <div class="close__level-box">
+            <span class="cross one"></span>
+            <span class="cross two"></span>
+          </div>
+
+          <ul>
+            <li><a href="#" class="level__btn" >Easy</a></li>
+            <li><a href="#" class="level__btn">Normal</a></li>
+            <li><a href="#" class="level__btn">Hardcore</a></li>
+          </ul>
+
+        </div>
+
       </div>
 
-      <div class="field">
-        <canvas></canvas>
-        <div class="ball"></div>
+      <div class="game__page hidden">
+        <div class="sidebar">
+          <ul>
+            <li><a href="#" class="control__btn" id="main">Main Page</a></li>
+            <li>
+              <a href="#" class="control__btn" id="new__game">New Game</a>
+            </li>
+            <li><a href="#" class="control__btn" id="pause">Pause</a></li>
+          </ul>
+        </div>
+
+        <div class="field">
+          <canvas></canvas>
+          <div class="ball"></div>
         </div>
       </div>
-
     </div>
 
     <script src="./js/maze.js"></script>

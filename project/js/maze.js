@@ -1,16 +1,18 @@
 "use strict";
 
-const COLUMNS = 11;
-const ROWS = 11;
-const CELL_SIZE = 40;
 const TRACTOR_NUMBER = 5;
 const DELAY_TIMEOUT = 0;
-const PADDING = CELL_SIZE;
 
 const WALL_COLOR = "black";
 const TUNNEL_COLOR = "white";
 const TRACTOR_COLOR = "red";
 const BACKGROUND_COLOR = "black";
+
+
+let ROWS = 11;
+let COLUMNS = ROWS;
+let CELL_SIZE = 55;
+let PADDING = CELL_SIZE;
 
 let matrix = null;
 let canvas = null;
@@ -104,14 +106,14 @@ const drawMaze = () => {
     }
   }
 
-  drawSquare(0, 0 + PADDING, CELL_SIZE, CELL_SIZE, "red");
+  drawSquare(0, 0 + PADDING, CELL_SIZE, CELL_SIZE, "rgb(151, 151, 150)");
 
   drawSquare(
     PADDING * 2 + (matrix.length - 1) * CELL_SIZE,
     PADDING + (matrix.length - 1) * CELL_SIZE,
     CELL_SIZE,
     CELL_SIZE,
-    "blue"
+    "rgb(153, 2, 2)"
   );
 };
 

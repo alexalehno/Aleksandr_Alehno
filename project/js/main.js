@@ -1,16 +1,64 @@
 "use strict";
 
-const start = document.querySelector("#start");
-const pause = document.querySelector("#pause");
+const startBtn = document.querySelector("#start");
+const levelBtn = document.querySelector("#level");
+
+const mainBtn = document.querySelector("#main");
+const newGameBtn = document.querySelector("#new__game");
+const pauseBtn = document.querySelector("#pause");
+
 const field = document.querySelector(".field");
 const ball = document.querySelector(".ball");
-const btn = document.querySelectorAll("a");
+const controlBtn = document.querySelectorAll(".control__btn");
+const levelСhoiceBtn = document.querySelectorAll(".level__btn");
+
+const levelBox = document.querySelector(".level__box");
+
+const levelСhoice = {
+  Easy: { quantityCell: 11, sizeCell: 55, sizeBall: 40 },
+  Normal: { quantityCell: 17, sizeCell: 55, sizeBall: 40 },
+  Hardcore: { quantityCell: 31, sizeCell: 38, sizeBall: 25 },
+};
+
+function setLevel(e) {
+  function setChoice(p) {
+    if (e.target.innerText === p) {
+      for (let key in levelСhoice) {
+        if (key === p) {
+          CELL_SIZE = levelСhoice[key].sizeCell;
+          ROWS = levelСhoice[key].quantityCell;
+          COLUMNS = levelСhoice[key].quantityCell;
+        }
+      }
+
+      levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
+      e.target.classList.toggle("active");
+    }
+  }
+
+  console.log(levelСhoiceBtn);
+
+  setChoice("Easy");
+  setChoice("Normal");
+  setChoice("Hardcore");
+  newGame();
+}
 
 let x = null;
 let y = null;
 
 let incr = 2;
 let timer = null;
+
+function showHideLevelBox() {
+  levelBox.style.opacity = 1;
+  levelBox.style.zIndex = 99;
+
+  document.querySelector(".close__level-box").addEventListener("click", () => {
+    levelBox.style.opacity = "";
+    levelBox.style.zIndex = "";
+  });
+}
 
 function mouseClick() {
   this.style.backgroundColor = "black";
@@ -104,11 +152,25 @@ update();
 function newGame() {
   stop();
   initialCoord();
- 
   buildMaze();
 }
 
-start.addEventListener("click", newGame);
+function switchPages() {
+  let mainPage = document.querySelector(".main__page");
+  let gamePage = document.querySelector(".game__page");
+
+  mainPage.classList.toggle("hidden");
+  gamePage.classList.toggle("hidden");
+}
+
+startBtn.addEventListener("click", switchPages);
+mainBtn.addEventListener("click", switchPages);
+newGameBtn.addEventListener("click", newGame);
+
+levelBtn.addEventListener("click", showHideLevelBox);
+
 pause.addEventListener("click", stop);
+
 window.addEventListener("keydown", (e) => motion(e));
-btn.forEach((el) => el.addEventListener("mousedown", mouseClick));
+controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));
+levelBox.addEventListener("click", (e) => setLevel(e));
