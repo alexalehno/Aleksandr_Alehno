@@ -10,13 +10,14 @@ const levelGamePageBtn = document.querySelector("#game__page_level");
 
 const mainPageBtn = document.querySelector("#main__page_btn");
 const newGameBtn = document.querySelector("#new__game_btn");
-const pauseBtn = document.querySelector("#pause_btn");
+const stopBtn = document.querySelector("#stop_btn");
 
 const controlBtn = document.querySelectorAll(".control__btn");
 const levelСhoiceBtn = document.querySelectorAll(".level__btn");
 
 const field = document.querySelector(".field");
 const ball = document.querySelector(".ball");
+const scoreBox = document.querySelector(".score");
 
 // ................................................................
 
@@ -27,13 +28,33 @@ const levelСhoiceStore = {
 };
 
 let timer = null;
+let cellX = null;
+let cellY = null;
 let x = null;
 let y = null;
 
-let sizeBall = 50;
+let sizeBall = 40;
 let incr = 2;
+let score = 0;
 
 // ...................................................................
+
+function keepСount() {
+  if (cellX === ROWS - 1 && cellY === COLUMNS - 1) {
+    ROWS += 2;
+    COLUMNS += 2;
+    scoreBox.innerText = ++score;
+    rebuild();
+    stop();
+  }
+}
+
+function rebuild() {
+  stop();
+  initialSet();
+  buildMaze();
+}
+//............................
 
 const stop = () => cancelAnimationFrame(timer);
 
@@ -65,8 +86,8 @@ const direction = (e) => {
 };
 
 const collisionBorder = (e) => {
-  let cellX = Math.floor(x / CELL_SIZE) - 1;
-  let cellY = Math.floor(y / CELL_SIZE) - 1;
+  cellX = Math.floor(x / CELL_SIZE) - 1;
+  cellY = Math.floor(y / CELL_SIZE) - 1;
   let offsetX = Math.floor((x + ball.clientWidth) / CELL_SIZE) - 1;
   let offsetY = Math.floor((y + ball.clientHeight) / CELL_SIZE) - 1;
 
@@ -107,6 +128,8 @@ const motion = (e) => {
   }
 
   timer = requestAnimationFrame(() => motion(e));
+
+  keepСount();
 };
 
 // ...........................................................
@@ -163,7 +186,7 @@ function setLevel(e) {
 
       levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
       e.target.classList.toggle("active");
-      newGame();
+      rebuild();
     }
   }
 
@@ -173,9 +196,9 @@ function setLevel(e) {
 }
 
 function newGame() {
-  stop();
-  initialSet();
-  buildMaze();
+  score = 0;
+  scoreBox.innerText = "";
+  rebuild();
 }
 
 initialSet();
@@ -192,7 +215,7 @@ levelGamePageBtn.addEventListener("click", showHideLevelBox);
 startBtn.addEventListener("click", switchPages);
 mainPageBtn.addEventListener("click", switchPages);
 newGameBtn.addEventListener("click", newGame);
-pauseBtn.addEventListener("click", stop);
+stopBtn.addEventListener("click", stop);
 
 levelBox.addEventListener("click", (e) => setLevel(e));
 controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));

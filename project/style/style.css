@@ -67,10 +67,24 @@ p {
 }
 
 .sidebar {
-  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.score__box {
+  width: 150px;
+  height: 75px;
+  margin: 50px auto 0;
+  color: rgb(153, 2, 2);
+  font-size: 25px;
+  font-family: "Reggae One", cursive;
+  background-color: white;
 }
 
 /* ................. */
+
 .field {
   position: relative;
   display: inline-block;
