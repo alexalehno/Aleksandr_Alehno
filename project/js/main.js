@@ -5,7 +5,6 @@ const gamePage = document.querySelector(".game__page");
 const levelBox = document.querySelector(".level__box");
 
 const startBtn = document.querySelector("#start");
-const levelMainPageBtn = document.querySelector("#main__page_level");
 const levelGamePageBtn = document.querySelector("#game__page_level");
 
 const mainPageBtn = document.querySelector("#main__page_btn");
@@ -18,13 +17,30 @@ const levelСhoiceBtn = document.querySelectorAll(".level__btn");
 const field = document.querySelector(".field");
 const ball = document.querySelector(".ball");
 const scoreBox = document.querySelector(".score");
+const soundBtn = document.querySelector("#sound");
 
-// ................................................................
+const gamerNameBtn = document.querySelector("#your__name");
+const gamerNameBox = document.querySelector(".gamer__name");
+
+ 
+const BgLvel1 = new Audio("./media/level1.mp3");
+const BgLvel2 = new Audio("./media/level2.mp3");
+const BgLvel3 = new Audio("./media/level3.mp3");
+
+/////////////////////////////////////////////////////////////
+
+// function showNameBox() {
+//   gamerNameBox.classList.toggle("hidden");
+// }
+
+// gamerNameBtn.addEventListener("click", showNameBox);
+
+// ////////////////////////////////////////////////////////
 
 const levelСhoiceStore = {
-  Easy: { quantityCells: 11, sizeCell: 55, sizeBall: 40 },
-  Normal: { quantityCells: 17, sizeCell: 55, sizeBall: 40 },
-  Hardcore: { quantityCells: 31, sizeCell: 38, sizeBall: 25 },
+  Silence: { quantityCells: 11, sizeCell: 55, sizeBall: 40, incr: 2 },
+  Nightmare: { quantityCells: 19, sizeCell: 50, sizeBall: 30, incr: 3 },
+  "Death Metal": { quantityCells: 27, sizeCell: 44, sizeBall: 25, incr: 4 },
 };
 
 let timer = null;
@@ -37,24 +53,11 @@ let sizeBall = 40;
 let incr = 2;
 let score = 0;
 
-// ...................................................................
+// ////////////////////////////////////////////////////////////////
 
-function keepСount() {
-  if (cellX === ROWS - 1 && cellY === COLUMNS - 1) {
-    ROWS += 2;
-    COLUMNS += 2;
-    scoreBox.innerText = ++score;
-    rebuild();
-    stop();
-  }
-}
+//////////////////////////////////////////////////////////////
 
-function rebuild() {
-  stop();
-  initialSet();
-  buildMaze();
-}
-//............................
+////////////////////////////////////////////////////////////////////
 
 const stop = () => cancelAnimationFrame(timer);
 
@@ -64,6 +67,12 @@ const update = () => {
 
   ball.style.left = `${x}px`;
   ball.style.top = `${y}px`;
+};
+
+const rebuild = () => {
+  stop();
+  initialSet();
+  buildMaze();
 };
 
 const direction = (e) => {
@@ -142,6 +151,17 @@ function mouseClick() {
   });
 }
 
+function keepСount() {
+  if (cellX === ROWS - 1 && cellY === COLUMNS - 1) {
+    ROWS += 2;
+    COLUMNS += 2;
+    incr += 0.2;
+    scoreBox.innerText = ++score;
+    rebuild();
+    stop();
+  }
+}
+
 function initialSet() {
   x = 5 + PADDING;
   y = 5 + PADDING;
@@ -157,11 +177,8 @@ function showHideLevelBox() {
   levelBox.style.opacity = 1;
   levelBox.style.zIndex = 99;
 
-  levelBox.style.top = `${55}%`;
-
-  if (mainPage.classList.contains("hidden")) {
-    levelBox.style.left = `${15}%`;
-  }
+  levelBox.style.top = `${45}%`;
+  levelBox.style.left = `${295}px`;
 
   document.querySelector(".close__level-box").addEventListener("click", () => {
     levelBox.style.opacity = "";
@@ -181,6 +198,7 @@ function setLevel(e) {
           COLUMNS = levelСhoiceStore[key].quantityCells;
           PADDING = levelСhoiceStore[key].sizeCell;
           sizeBall = levelСhoiceStore[key].sizeBall;
+          incr = levelСhoiceStore[key].incr;
         }
       }
 
@@ -190,9 +208,9 @@ function setLevel(e) {
     }
   }
 
-  setChoice("Easy");
-  setChoice("Normal");
-  setChoice("Hardcore");
+  setChoice("Silence");
+  setChoice("Nightmare");
+  setChoice("Death Metal");
 }
 
 function newGame() {
@@ -205,15 +223,44 @@ initialSet();
 
 update();
 
+function soundControl() {
+  BgLvel1.loop = true;
+  BgLvel1.volume = 0.2;
+  BgLvel1.currentTime = 0;
+
+  if (mainPage.classList.contains("hidden")) {
+    BgLvel1.play();
+    soundBtn.classList.remove("sound__pause");
+  } else {
+    BgLvel1.pause();
+  }
+}
+
+function soundPause() {
+  soundBtn.classList.toggle("sound__pause");
+  if (soundBtn.classList.contains("sound__pause")) {
+    BgLvel1.pause();
+  } else BgLvel1.play();
+}
 // ........................................................
+
+soundBtn.addEventListener("click", soundPause);
 
 window.addEventListener("keydown", (e) => motion(e));
 
-levelMainPageBtn.addEventListener("click", showHideLevelBox);
 levelGamePageBtn.addEventListener("click", showHideLevelBox);
 
-startBtn.addEventListener("click", switchPages);
-mainPageBtn.addEventListener("click", switchPages);
+startBtn.addEventListener("click", () => {
+  switchPages();
+  soundControl();
+  rebuild();
+});
+
+mainPageBtn.addEventListener("click", () => {
+  switchPages();
+  soundControl();
+});
+
 newGameBtn.addEventListener("click", newGame);
 stopBtn.addEventListener("click", stop);
 
