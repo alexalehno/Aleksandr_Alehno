@@ -5,7 +5,7 @@ const gamePage = document.querySelector(".game__page");
 const levelBox = document.querySelector(".level__box");
 
 const startBtn = document.querySelector("#start");
-const levelGamePageBtn = document.querySelector("#game__page_level");
+const showHideLevelBoxBtn = document.querySelector("#show_hide_level__box_btn");
 
 const mainPageBtn = document.querySelector("#main__page_btn");
 const newGameBtn = document.querySelector("#new__game_btn");
@@ -22,10 +22,15 @@ const soundBtn = document.querySelector("#sound");
 const gamerNameBtn = document.querySelector("#your__name");
 const gamerNameBox = document.querySelector(".gamer__name");
 
- 
-const BgLvel1 = new Audio("./media/level1.mp3");
-const BgLvel2 = new Audio("./media/level2.mp3");
-const BgLvel3 = new Audio("./media/level3.mp3");
+const winSound = new Audio("./media/win.mp3");
+winSound.volume = 0.8;
+
+const bgMusicLevel1 = new Audio("./media/level1.mp3");
+const bgMusicLevel2 = new Audio("./media/level2.mp3");
+const bgMusicLevel3 = new Audio("./media/level3.mp3");
+
+bgMusicLevel1.volume = 0.15;
+bgMusicLevel3.volume = 0.2;
 
 /////////////////////////////////////////////////////////////
 
@@ -37,11 +42,30 @@ const BgLvel3 = new Audio("./media/level3.mp3");
 
 // ////////////////////////////////////////////////////////
 
-const levelСhoiceStore = {
-  Silence: { quantityCells: 11, sizeCell: 55, sizeBall: 40, incr: 2 },
-  Nightmare: { quantityCells: 19, sizeCell: 50, sizeBall: 30, incr: 3 },
-  "Death Metal": { quantityCells: 27, sizeCell: 44, sizeBall: 25, incr: 4 },
+const levelStore = {
+  Silence: {
+    quantityCells: 11,
+    sizeCell: 55,
+    sizeBall: 30,
+    incr: 2,
+    bgMusic: bgMusicLevel1,
+  },
+  Nightmare: {
+    quantityCells: 19,
+    sizeCell: 50,
+    sizeBall: 30,
+    incr: 3,
+    bgMusic: bgMusicLevel2,
+  },
+  "Death Metal": {
+    quantityCells: 27,
+    sizeCell: 44,
+    sizeBall: 25,
+    incr: 4,
+    bgMusic: bgMusicLevel3,
+  },
 };
+
 
 let timer = null;
 let cellX = null;
@@ -49,13 +73,10 @@ let cellY = null;
 let x = null;
 let y = null;
 
-let sizeBall = 40;
-let incr = 2;
 let score = 0;
-
-// ////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
+let sizeBall = 30;
+let incr = 2;
+let bgMusic = bgMusicLevel1;
 
 ////////////////////////////////////////////////////////////////////
 
@@ -100,7 +121,7 @@ const collisionBorder = (e) => {
   let offsetX = Math.floor((x + ball.clientWidth) / CELL_SIZE) - 1;
   let offsetY = Math.floor((y + ball.clientHeight) / CELL_SIZE) - 1;
 
-  if (y <= CELL_SIZE + 2) {
+  if (y <= CELL_SIZE + 5) {
     y += incr;
   }
 
@@ -143,6 +164,35 @@ const motion = (e) => {
 
 // ...........................................................
 
+function stopMusic() {
+  bgMusicLevel1.pause();
+  bgMusicLevel2.pause();
+  bgMusicLevel3.pause();
+}
+
+function soundControl(bgMusic) {
+  bgMusic.loop = true;
+  bgMusic.currentTime = 0;
+  stopMusic();
+
+  if (
+    mainPage.classList.contains("hidden") &&
+    !soundBtn.classList.contains("sound__pause")
+  ) {
+    bgMusic.play();
+  }
+}
+
+function soundPause() {
+  if (!bgMusic.paused) {
+    stopMusic();
+    soundBtn.classList.add("sound__pause");
+  } else {
+    soundBtn.classList.remove("sound__pause");
+    bgMusic.play();
+  }
+}
+
 function mouseClick() {
   this.style.backgroundColor = "black";
 
@@ -151,12 +201,42 @@ function mouseClick() {
   });
 }
 
+function setLevel(e) {
+  function setChoice(p) {
+    if (e.target.innerText === p) {
+      for (let key in levelStore) {
+        if (key === p) {
+          CELL_SIZE = levelStore[key].sizeCell;
+          ROWS = levelStore[key].quantityCells;
+          COLUMNS = levelStore[key].quantityCells;
+          PADDING = levelStore[key].sizeCell;
+          sizeBall = levelStore[key].sizeBall;
+          incr = levelStore[key].incr;
+          bgMusic = levelStore[key].bgMusic;
+        }
+      }
+
+      levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
+      e.target.classList.add("active");
+
+      rebuild();
+      soundControl(bgMusic);
+    }
+  }
+
+  setChoice("Silence");
+  setChoice("Nightmare");
+  setChoice("Death Metal");
+}
+
 function keepСount() {
   if (cellX === ROWS - 1 && cellY === COLUMNS - 1) {
     ROWS += 2;
     COLUMNS += 2;
-    incr += 0.2;
+    incr += 0.3;
+
     scoreBox.innerText = ++score;
+    winSound.play();
     rebuild();
     stop();
   }
@@ -188,31 +268,6 @@ function showHideLevelBox() {
   });
 }
 
-function setLevel(e) {
-  function setChoice(p) {
-    if (e.target.innerText === p) {
-      for (let key in levelСhoiceStore) {
-        if (key === p) {
-          CELL_SIZE = levelСhoiceStore[key].sizeCell;
-          ROWS = levelСhoiceStore[key].quantityCells;
-          COLUMNS = levelСhoiceStore[key].quantityCells;
-          PADDING = levelСhoiceStore[key].sizeCell;
-          sizeBall = levelСhoiceStore[key].sizeBall;
-          incr = levelСhoiceStore[key].incr;
-        }
-      }
-
-      levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
-      e.target.classList.toggle("active");
-      rebuild();
-    }
-  }
-
-  setChoice("Silence");
-  setChoice("Nightmare");
-  setChoice("Death Metal");
-}
-
 function newGame() {
   score = 0;
   scoreBox.innerText = "";
@@ -223,46 +278,28 @@ initialSet();
 
 update();
 
-function soundControl() {
-  BgLvel1.loop = true;
-  BgLvel1.volume = 0.2;
-  BgLvel1.currentTime = 0;
-
-  if (mainPage.classList.contains("hidden")) {
-    BgLvel1.play();
-    soundBtn.classList.remove("sound__pause");
-  } else {
-    BgLvel1.pause();
-  }
-}
-
-function soundPause() {
-  soundBtn.classList.toggle("sound__pause");
-  if (soundBtn.classList.contains("sound__pause")) {
-    BgLvel1.pause();
-  } else BgLvel1.play();
-}
 // ........................................................
 
 soundBtn.addEventListener("click", soundPause);
 
 window.addEventListener("keydown", (e) => motion(e));
 
-levelGamePageBtn.addEventListener("click", showHideLevelBox);
-
-startBtn.addEventListener("click", () => {
-  switchPages();
-  soundControl();
-  rebuild();
-});
-
-mainPageBtn.addEventListener("click", () => {
-  switchPages();
-  soundControl();
-});
+showHideLevelBoxBtn.addEventListener("click", showHideLevelBox);
 
 newGameBtn.addEventListener("click", newGame);
 stopBtn.addEventListener("click", stop);
 
 levelBox.addEventListener("click", (e) => setLevel(e));
+
 controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));
+
+startBtn.addEventListener("click", () => {
+  switchPages();
+  rebuild();
+  soundControl(bgMusic);
+});
+
+mainPageBtn.addEventListener("click", () => {
+  switchPages();
+  soundControl(bgMusic);
+});

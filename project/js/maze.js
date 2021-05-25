@@ -1,7 +1,7 @@
 "use strict";
 
-const TRACTOR_NUMBER = 5;
-const DELAY_TIMEOUT = 0;
+const TRACTOR_NUMBER = 2;
+const DELAY_TIMEOUT = 5;
 
 const WALL_COLOR = "black";
 const TUNNEL_COLOR = "white";
