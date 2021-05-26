@@ -9,8 +9,9 @@
       href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" type="ico/png" href="./media/f_maze.svg" />
     <link rel="stylesheet" href="./style/style.css" />
-    <title>Document</title>
+    <title>Maze Runner</title>
   </head>
   <body>
 
@@ -25,18 +26,38 @@
         <ul>
           <li><a href="#" class="control__btn" id="start">Start</a></li>
           <li><a href="#" class="control__btn" id="your__name">Your name</a></li>
-          <li><a href="#" class="control__btn" id="about">About</a></li>
+          <li><a href="#" class="control__btn" id="about__bnt">About</a></li>
 
         </ul>
 
-        <div class="gamer__name hidden"></div>
+        <div class="about__box hidden__about">
+          <div class="close__box" id="close__about-box">
+            <span class="cross one"></span>
+            <span class="cross two"></span>
+          </div>
+          <h3>Сontrol</h2>
+            <ul>
+              <li>Movement: &ensp; &#8592; &#8594; 	&#8595; &#8593; </li>
+              <li> Pause: &ensp; &laquo;spase&raquo;</li>
+            </ul>
+          
+         
+          <h3>About</h3>
+          <p>The Aldous-Broder algorithm was developed independently by both David
+            Aldous, a professor at UC Berkeley, and Andrei Broder. The idea is just this: Start anywhere in the grid you want,
+            and choose a random neighbor. Move to that neighbor, and if it hasn’t previously been visited, link it to the prior cell. Repeat until every cell has been visited.
+             It’s that random walk, the aimless, directionless meandering
+            from cell to cell, that is at the root of this algorithm’s ability to avoid being
+            biased. Sadly, as we’ll see it also means that it can take a long time to run.
+           </p>
+        </div>
 
       </div>
 
       <div class="game__page hidden">
 
         <div class="level__box">
-          <div class="close__level-box">
+          <div class="close__box" id="close__level-box">
             <span class="cross one"></span>
             <span class="cross two"></span>
           </div>

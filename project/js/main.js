@@ -20,7 +20,9 @@ const scoreBox = document.querySelector(".score");
 const soundBtn = document.querySelector("#sound");
 
 const gamerNameBtn = document.querySelector("#your__name");
-const gamerNameBox = document.querySelector(".gamer__name");
+
+const aboutBtn = document.querySelector("#about__bnt");
+const aboutBox = document.querySelector(".about__box");
 
 const winSound = new Audio("./media/win.mp3");
 winSound.volume = 0.8;
@@ -34,11 +36,10 @@ bgMusicLevel3.volume = 0.2;
 
 /////////////////////////////////////////////////////////////
 
-// function showNameBox() {
-//   gamerNameBox.classList.toggle("hidden");
-// }
+const closeAboutBox = document.querySelector("#close__about-box");
 
-// gamerNameBtn.addEventListener("click", showNameBox);
+aboutBtn.addEventListener("click", ()=>aboutBox.classList.remove("hidden__about"));
+closeAboutBox.addEventListener("click", ()=>aboutBox.classList.add("hidden__about"));
 
 // ////////////////////////////////////////////////////////
 
@@ -61,7 +62,7 @@ const levelStore = {
     quantityCells: 27,
     sizeCell: 44,
     sizeBall: 25,
-    incr: 4,
+    incr: 3,
     bgMusic: bgMusicLevel3,
   },
 };
@@ -243,8 +244,8 @@ function keepСount() {
 }
 
 function initialSet() {
-  x = 5 + PADDING;
-  y = 5 + PADDING;
+  x = 10 + PADDING;
+  y = 10 + PADDING;
   update();
 }
 
@@ -260,7 +261,7 @@ function showHideLevelBox() {
   levelBox.style.top = `${45}%`;
   levelBox.style.left = `${295}px`;
 
-  document.querySelector(".close__level-box").addEventListener("click", () => {
+  document.querySelector("#close__level-box").addEventListener("click", () => {
     levelBox.style.opacity = "";
     levelBox.style.zIndex = "";
     levelBox.style.top = "";
