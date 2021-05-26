@@ -23,6 +23,7 @@ const gamerNameBtn = document.querySelector("#your__name");
 
 const aboutBtn = document.querySelector("#about__bnt");
 const aboutBox = document.querySelector(".about__box");
+const closeAboutBox = document.querySelector("#close__about-box");
 
 const winSound = new Audio("./media/win.mp3");
 winSound.volume = 0.8;
@@ -36,10 +37,8 @@ bgMusicLevel3.volume = 0.2;
 
 /////////////////////////////////////////////////////////////
 
-const closeAboutBox = document.querySelector("#close__about-box");
 
-aboutBtn.addEventListener("click", ()=>aboutBox.classList.remove("hidden__about"));
-closeAboutBox.addEventListener("click", ()=>aboutBox.classList.add("hidden__about"));
+
 
 // ////////////////////////////////////////////////////////
 
@@ -280,6 +279,9 @@ initialSet();
 update();
 
 // ........................................................
+
+aboutBtn.addEventListener("click", ()=>aboutBox.classList.remove("hidden__about"));
+closeAboutBox.addEventListener("click", ()=>aboutBox.classList.add("hidden__about"));
 
 soundBtn.addEventListener("click", soundPause);
 
