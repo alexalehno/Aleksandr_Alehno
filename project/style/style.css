@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  scroll-behavior: smooth;
 }
 
 h1 {
@@ -51,9 +52,9 @@ p {
 .about__box {
   position: absolute;
   display: inline-block;
-  top: 20px;
+  top: 100px;
   left: 50%;
-  padding: 20px;
+  padding: 10px 20px 30px;
   transform: translate(-50%, 0);
   width: 50%;
   font-size: 20px;
@@ -62,12 +63,17 @@ p {
   box-shadow: 0 0 15px rgb(24 22 22);
   opacity: 1;
   transition: 0.3s;
-
   z-index: 9;
 }
 
-.about__box ul{
- padding-left: 50px;
+.about__box p {
+  font-size: 17px;
+}
+
+.about__box ul {
+  padding-left: 50px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid gray;
 }
 
 .about__box ul li {
@@ -75,10 +81,30 @@ p {
   text-align: left;
 }
 
-.hidden__about {
-  top: -100px;
-  opacity:0;
-  z-index: -1;
+.records {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  width: 400px;
+  padding:  5px 40px 40px;
+  transform: translate(-50%, 0);
+  font-size: 22px;
+  font-family: "Reggae One", cursive;
+  background-color: gray;
+  box-shadow: 0 0 4px rgb(24 22 22);
+  transition: 0.3s;
+  z-index: 15;
+}
+
+.records__content {
+  width: 100%;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+} 
+.records__content div {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
 }
 
 .game__page {
@@ -168,7 +194,7 @@ p {
   color: #007bff;
   background-color: rgb(219, 219, 219);
   box-shadow: 0 0 4px rgb(24, 22, 22);
-  transition: 0.1;
+  transition: 0.4s;
 }
 
 .control__btn.sidebar__btn {
@@ -177,10 +203,7 @@ p {
 }
 
 .control__btn:hover {
-  /* color: brown; */
   background-color: black;
-
-  /* background-color: rgb(179, 128, 51); */
 }
 
 .sound__pause {
@@ -189,22 +212,21 @@ p {
 
 .level__box {
   position: absolute;
-  top: -200px;
-  left: 50%;
-  padding: 5px 40px 20px;
-  transform: translateX(-50%) translateY(-50%);
   display: inline-block;
+  top: 200px;
+  left: 170px;
+  padding: 5px 40px 20px;
+  font-size: 28px;
   background-color: rgb(151, 151, 150);
   box-shadow: 0 0 15px rgb(24 22 22);
-  opacity: 0;
-  z-index: -1;
+  z-index: 99;
   transition: 0.6s;
 }
 
-.level__btn {
+.level__choice_btn {
   display: block;
   margin: 25px 0;
-  font-size: 25px;
+
   font-family: "Reggae One", cursive;
   color: rgb(153, 2, 2);
   text-shadow: 4px 0px 10px rgb(255 0 0 / 50%);
@@ -212,12 +234,12 @@ p {
   transition: transform 0.3s;
 }
 
-.level__btn.active {
+.level__choice_btn.active {
   transform: scale(1.4);
   color: white;
 }
 
-.level__btn:hover {
+.level__choice_btn:hover {
   transform: scale(1.4);
   color: white;
 }
@@ -231,6 +253,7 @@ p {
   transform: translateX(-100%) translateY(0%);
   cursor: pointer;
   background-color: rgb(153, 2, 2);
+  z-index: 99;
 }
 
 .cross {
@@ -246,4 +269,57 @@ p {
 
 .cross.two {
   transform: rotate(-45deg) translateX(-3px) translateY(9px);
+}
+/* .............................. */
+
+form {
+  position: absolute;
+  top: 30%;
+  padding: 20px;
+  margin: 20px;
+  background-color: gray;
+  box-shadow: 0 0 4px rgb(24 22 22);
+  transition: 0.5s;
+  z-index: 25;
+}
+
+form input {
+  display: block;
+  width: 250px;
+  margin: 0 auto 20px;
+  border: none;
+  outline: none;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(153, 2, 2);
+  background-color: rgb(219, 219, 219);
+  box-shadow: 0 0 4px rgb(24 22 22);
+}
+
+form button {
+  display: inline-block;
+  width: 80px;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(153, 2, 2);
+  background-color: rgb(219, 219, 219);
+  box-shadow: 0 0 4px rgb(24 22 22);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form button:hover {
+  color: white;
+  background-color: rgb(153, 2, 2);
+}
+
+.hidden__box {
+  top: -100px;
+  opacity: 0;
+  z-index: -1;
 }

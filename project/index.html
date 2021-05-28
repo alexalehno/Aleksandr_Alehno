@@ -16,31 +16,46 @@
   <body>
 
     <div class="app">
+      <!-- ..................   MAIN PAGE ...................... -->
 
       <div class="main__page">
 
         <div class="header">
           <h1>MAZE RUNNER</h1>
         </div>
+        
 
         <ul>
-          <li><a href="#" class="control__btn" id="start">Start</a></li>
-          <li><a href="#" class="control__btn" id="your__name">Your name</a></li>
-          <li><a href="#" class="control__btn" id="about__bnt">About</a></li>
+          <li><a href="" class="control__btn" id="start">Go</a></li>
+          <li><a href="" class="control__btn" id="records">Records</a></li>
+          <li><a href="" class="control__btn" id="about__bnt">About</a></li>
 
         </ul>
 
-        <div class="about__box hidden__about">
+        <div class="records hidden__box">
+          <div class="close__box" id="close__records-box">
+            <span class="cross one"></span>
+            <span class="cross two"></span>
+          </div>
+
+          <h3>Records</h3>
+
+          <div class="records__content"></div>
+
+        </div>
+
+        <div class="about__box hidden__box">
           <div class="close__box" id="close__about-box">
             <span class="cross one"></span>
             <span class="cross two"></span>
           </div>
+
           <h3>Сontrol</h2>
-            <ul>
-              <li>Movement: &ensp; &#8592; &#8594; 	&#8595; &#8593; </li>
-              <li> Pause: &ensp; &laquo;spase&raquo;</li>
-            </ul>
-          
+
+          <ul>
+            <li>Movement: &ensp; &#8592; &#8594; 	&#8595; &#8593; </li>
+            <li> Pause: &ensp; &laquo;spase&raquo;</li>
+          </ul>
          
           <h3>About</h3>
           <p>The Aldous-Broder algorithm was developed independently by both David
@@ -51,37 +66,44 @@
             biased. Sadly, as we’ll see it also means that it can take a long time to run.
            </p>
         </div>
-
       </div>
 
-      <div class="game__page hidden">
 
-        <div class="level__box">
+      <!-- ..................   GAME PAGE ...................... -->
+
+      <div class="game__page hidden ">
+
+        <form class="hidden__box" action="#"   id="form">
+          <input type="text" placeholder="Your name" id="gamer__name"> 
+          <button id="send__btn">Save Me</button>
+        </form>
+
+        <div class="level__box hidden__box">
           <div class="close__box" id="close__level-box">
             <span class="cross one"></span>
             <span class="cross two"></span>
           </div>
   
           <ul>
-            <li><a href="#" class="level__btn">Silence</a></li>
-            <li><a href="#" class="level__btn">Nightmare</a></li>
-            <li><a href="#" class="level__btn">Death Metal</a></li>
+            <li><a href="" class="level__choice_btn">Silence</a></li>
+            <li><a href="" class="level__choice_btn">Nightmare</a></li>
+            <li><a href="" class="level__choice_btn">Madness</a></li>
           </ul>
         </div>
 
         <div class="sidebar">
           <ul>
-            <li><a href="#" class="control__btn sidebar__btn" id="main__page_btn">Main Page</a></li>
-            <li><a href="#" class="control__btn sidebar__btn" id="new__game_btn">New Game</a> </li>        
-            <li><a href="#" class="control__btn sidebar__btn" id="show_hide_level__box_btn">Level</a></li>
-            <li><a href="#" class="control__btn sidebar__btn" id="stop_btn">Stop</a></li>
-            <li><a href="#" class="control__btn sidebar__btn" id="sound">Sound</a></li>
+            <li><a href="" class="control__btn sidebar__btn" id="main__page_btn">Main Page</a></li>
+            <li><a href="" class="control__btn sidebar__btn" id="new__game_btn">New Game</a> </li>        
+            <li><a href="" class="control__btn sidebar__btn" id="level__btn">Level</a></li>
+            <li><a href="" class="control__btn sidebar__btn" id="sound">Sound</a></li>
+            <li><a href="" class="control__btn sidebar__btn" id="save_btn">Save</a></li>
 
           </ul>
 
           <div class="score__box">
             <p>Score:</p>
-            <div class="score"></div>
+            <div class="score" id="gamer__score"></div>
           </div>
         </div>
 
@@ -94,7 +116,13 @@
 
     </div>
 
+
+
+    <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
+    <script src="./js/results.js"></script>
     <script src="./js/maze.js"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/SPA.js"></script>
+
   </body>
 </html>
