@@ -24,6 +24,18 @@ const ball = document.querySelector(".ball");
 
 const soundBtn = document.querySelector("#sound");
 
+// ..............................
+
+const burgerMenu = document.querySelector(".burger__menu");
+const sideBar = document.querySelector(".sidebar");
+
+
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("menu__active");
+  sideBar.classList.toggle("sidebar__hidden");
+});
+
+// .............................
 const winSound = new Audio("./media/win.mp3");
 winSound.volume = 0.8;
 

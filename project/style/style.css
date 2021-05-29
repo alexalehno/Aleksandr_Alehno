@@ -26,6 +26,42 @@ p {
   margin: 0 20px;
 }
 
+/* ...................... */
+
+.burger__menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  margin: 10px;
+  z-index: 999;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.burger__menu span {
+  display: block;
+  width: 45px;
+  height: 9px;
+  margin-top: 10px;
+  transition: 0.4s;
+  background-color: rgb(153 2 2);
+}
+
+.burger__menu.menu__active span {
+  transition: 0.4s;
+}
+
+.burger__menu.menu__active .burger__line_top {
+  transform: rotate(45deg) translate(13px) scale(0.7);
+}
+
+.burger__menu.menu__active .burger__line_bottom {
+  transform: rotate(-45deg) translate(13px) scale(0.7);
+}
+
+/* ......................... */
+
 .header {
   padding-top: 80px;
   padding-bottom: 50px;
@@ -129,6 +165,8 @@ p {
   flex-direction: column;
   padding: 20px 10px;
   background-color: rgba(0, 0, 0, 0.3);
+  transition: 0.4s;
+  z-index: 99;
 }
 
 .score__box {
@@ -160,25 +198,6 @@ p {
   );
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(0.7);
-    background-color: rgb(141, 141, 141);
-    box-shadow: 0 0 2px black;
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 0 20px rgb(34, 0, 129);
-  }
-}
-
-.ball {
-  animation: pulse 0.8s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite alternate
-    both;
-}
-
 /* ................ */
 
 .control__btn {
@@ -190,7 +209,7 @@ p {
   text-decoration: none;
   font-size: 25px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: #007bff;
+  color: #626366;
   background-color: rgb(219, 219, 219);
   box-shadow: 0 0 4px rgb(24, 22, 22);
   transition: 0.4s;
@@ -323,6 +342,25 @@ form button:hover {
   z-index: -1;
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(0.7);
+    background-color: rgb(141, 141, 141);
+    box-shadow: 0 0 2px black;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0 0 20px rgb(34, 0, 129);
+  }
+}
+
+.ball {
+  animation: pulse 0.8s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite alternate
+    both;
+}
+
 @media all and (max-width: 850px) {
   h1 {
     font-size: 50px;
@@ -345,6 +383,14 @@ form button:hover {
   .sidebar {
     position: absolute;
     left: -200px;
+    padding-top: 40px;
   }
 
+  .burger__menu {
+    display: block;
+  }
+}
+
+.sidebar__hidden {
+  left: 0px;
 }
