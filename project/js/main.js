@@ -309,9 +309,7 @@ startBtn.addEventListener("click", () => {
 });
 
 mainPageBtn.addEventListener("click", () => {
+  stop();
   switchToMainPage();
   stopMusic();
 });
-
-
-

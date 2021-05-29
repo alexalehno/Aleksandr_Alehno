@@ -85,7 +85,7 @@ p {
   top: 100px;
   left: 50%;
   width: 400px;
-  padding:  5px 40px 40px;
+  padding: 5px 40px 40px;
   transform: translate(-50%, 0);
   font-size: 22px;
   font-family: "Reggae One", cursive;
@@ -99,7 +99,7 @@ p {
   width: 100%;
   border-top: 1px solid;
   border-bottom: 1px solid;
-} 
+}
 .records__content div {
   display: flex;
   justify-content: space-between;
@@ -321,4 +321,30 @@ form button:hover {
   top: -100px;
   opacity: 0;
   z-index: -1;
+}
+
+@media all and (max-width: 850px) {
+  h1 {
+    font-size: 50px;
+  }
+
+  .records {
+    width: 250px;
+    font-size: 17px;
+  }
+
+  .about__box {
+    width: 250px;
+    font-size: 13px;
+  }
+
+  .about__box p {
+    font-size: 11px;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: -200px;
+  }
+
 }

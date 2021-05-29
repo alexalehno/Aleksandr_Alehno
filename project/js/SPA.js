@@ -25,8 +25,8 @@ function switchToStateFromURLHash() {
     SPAState = { pagename: parts[0] };
   } else SPAState = { pagename: "Main" };
 
-  // console.log("Новое состояние приложения:");
-  // console.log(SPAState);
+  console.log("Новое состояние приложения:");
+  console.log(SPAState);
 
   switch (SPAState.pagename) {
     case "Main":
