@@ -31,12 +31,13 @@ p {
 .burger__menu {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -7px;
   display: none;
   margin: 10px;
   z-index: 999;
   cursor: pointer;
   transition: 0.4s;
+  outline: none;
 }
 
 .burger__menu span {
@@ -48,15 +49,14 @@ p {
   background-color: rgb(153 2 2);
 }
 
-.burger__menu.menu__active span {
-  transition: 0.4s;
+.menu__active {
+  left: 120px;
 }
-
-.burger__menu.menu__active .burger__line_top {
+.menu__active .burger__line_top {
   transform: rotate(45deg) translate(13px) scale(0.7);
 }
 
-.burger__menu.menu__active .burger__line_bottom {
+.menu__active .burger__line_bottom {
   transform: rotate(-45deg) translate(13px) scale(0.7);
 }
 
@@ -166,7 +166,7 @@ p {
   padding: 20px 10px;
   background-color: rgba(0, 0, 0, 0.3);
   transition: 0.4s;
-  z-index: 99;
+  z-index: 17;
 }
 
 .score__box {
