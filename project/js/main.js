@@ -43,8 +43,8 @@ const bgMusicLevel1 = new Audio("./media/level1.mp3");
 const bgMusicLevel2 = new Audio("./media/level2.mp3");
 const bgMusicLevel3 = new Audio("./media/level3.mp3");
 
-bgMusicLevel1.volume = 0.15;
-bgMusicLevel3.volume = 0.2;
+bgMusicLevel1.volume = 0.2;
+bgMusicLevel3.volume = 0.4;
 
 // ..........................................................
 
@@ -222,21 +222,21 @@ function showRecordsBox() {
     .querySelector("#close__records-box")
     .addEventListener("click", () => recordsBox.classList.add("hidden__box"));
 
-  recordsBox.classList.remove("hidden__box");
+  recordsBox.classList.toggle("hidden__box");
 }
 
 function showAboutBox() {
   document
     .querySelector("#close__about-box")
     .addEventListener("click", () => aboutBox.classList.add("hidden__box"));
-  aboutBox.classList.remove("hidden__box");
+  aboutBox.classList.toggle("hidden__box");
 }
 
 function showLevelBox() {
   document
     .querySelector("#close__level-box")
     .addEventListener("click", () => levelBox.classList.add("hidden__box"));
-  levelBox.classList.remove("hidden__box");
+  levelBox.classList.toggle("hidden__box");
 }
 
 function showForm() {
@@ -244,7 +244,7 @@ function showForm() {
     sendMessage();
     form.classList.add("hidden__box");
   });
-  form.classList.remove("hidden__box");
+  form.classList.toggle("hidden__box");
 }
 
 function setLevel(e) {
