@@ -43,8 +43,8 @@ const bgMusicLevel1 = new Audio("./media/level1.mp3");
 const bgMusicLevel2 = new Audio("./media/level2.mp3");
 const bgMusicLevel3 = new Audio("./media/level3.mp3");
 
-bgMusicLevel1.volume = 0.15;
-bgMusicLevel3.volume = 0.2;
+bgMusicLevel1.volume = 0.2;
+bgMusicLevel3.volume = 0.4;
 
 // ..........................................................
 
