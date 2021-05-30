@@ -1,7 +1,7 @@
 "use strict";
 
 const WORM_NUMBER = 3;
-const DELAY_TIMEOUT = 5;
+const DELAY_TIMEOUT = 0;
 
 const WALL_COLOR = "black";
 const TUNNEL_COLOR = "white";
