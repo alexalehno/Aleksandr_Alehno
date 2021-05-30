@@ -24,18 +24,10 @@ const ball = document.querySelector(".ball");
 
 const soundBtn = document.querySelector("#sound");
 
-// ..............................
-
 const burgerMenu = document.querySelector(".burger__menu");
 const sideBar = document.querySelector(".sidebar");
 
 
-burgerMenu.addEventListener("click", () => {
-  burgerMenu.classList.toggle("menu__active");
-  sideBar.classList.toggle("sidebar__hidden");
-});
-
-// .............................
 const winSound = new Audio("./media/win.mp3");
 winSound.volume = 0.8;
 
@@ -46,7 +38,6 @@ const bgMusicLevel3 = new Audio("./media/level3.mp3");
 bgMusicLevel1.volume = 0.2;
 bgMusicLevel3.volume = 0.4;
 
-// ..........................................................
 
 const levelStore = {
   Silence: {
@@ -83,7 +74,6 @@ let sizeBall = 30;
 let incr = 2;
 let bgMusic = bgMusicLevel1;
 
-////////////////////////////////////////////////////////////////////
 
 const stop = () => cancelAnimationFrame(timer);
 
@@ -328,4 +318,9 @@ mainPageBtn.addEventListener("click", () => {
   stop();
   switchToMainPage();
   stopMusic();
+});
+
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("menu__active");
+  sideBar.classList.toggle("sidebar__hidden");
 });

@@ -81,7 +81,7 @@ const drawMaze = () => {
   );
 };
 
-const moveTractor = (worm) => {
+const moveWorm = (worm) => {
   const directions = [];
 
   if (worm.x > 0) directions.push([-2, 0]);
@@ -135,7 +135,7 @@ async function buildMaze() {
 
   while (!isValidMaze()) {
     for (const worm of worms) {
-      moveTractor(worm);
+      moveWorm(worm);
     }
 
     drawMaze();

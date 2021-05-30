@@ -25,8 +25,6 @@ p {
   margin: 0 20px;
 }
 
-/* ...................... */
-
 .burger__menu {
   position: absolute;
   left: 0;
@@ -51,6 +49,7 @@ p {
 .menu__active {
   left: 120px;
 }
+
 .menu__active .burger__line_top {
   transform: rotate(45deg) translate(13px) scale(0.7);
 }
@@ -59,7 +58,6 @@ p {
   transform: rotate(-45deg) translate(13px) scale(0.7);
 }
 
-/* ......................... */
 
 .header {
   padding-top: 100px;
@@ -175,8 +173,6 @@ p {
   background-color: white;
 }
 
-/* ................. */
-
 .field {
   position: relative;
   display: inline-block;
@@ -193,8 +189,6 @@ p {
     rgba(0, 0, 0, 1) 90%
   );
 }
-
-/* ................ */
 
 .control__btn {
   display: inline-block;
@@ -284,7 +278,6 @@ p {
 .cross.two {
   transform: rotate(-45deg) translateX(-3px) translateY(9px);
 }
-/* .............................. */
 
 form {
   position: absolute;
