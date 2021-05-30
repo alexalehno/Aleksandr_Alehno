@@ -95,14 +95,9 @@ const update = () => {
   ball.style.top = `${y}px`;
 };
 
-const rebuild = () => {
-  stop();
-  initialSet();
-  buildMaze();
-};
 
 const direction = (e) => {
-  if (e.code) {
+  if (e) {
     switch (e.code) {
       case "ArrowUp":
         y += -incr;
@@ -115,6 +110,9 @@ const direction = (e) => {
         break;
       case "ArrowRight":
         x += incr;
+        break;
+      case "Space":
+        stop();
         break;
     }
   }
@@ -168,6 +166,12 @@ const motion = (e) => {
 };
 
 ////////////////////////////////////////////////////////////////////////////////////
+
+const rebuild = () => {
+  stop();
+  initialSet();
+  buildMaze();
+};
 
 function mouseClick() {
   this.style.backgroundColor = "red";

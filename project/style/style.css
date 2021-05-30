@@ -166,7 +166,7 @@ p {
   padding: 20px 10px;
   background-color: rgba(0, 0, 0, 0.3);
   transition: 0.4s;
-  z-index: 17;
+  z-index: 85;
 }
 
 .score__box {
@@ -298,7 +298,7 @@ form {
   background-color: gray;
   box-shadow: 0 0 4px rgb(24 22 22);
   transition: 0.5s;
-  z-index: 25;
+  z-index: 111;
 }
 
 form input {
@@ -367,17 +367,20 @@ form button:hover {
   }
 
   .records {
+    top: 50px;
     width: 250px;
     font-size: 17px;
   }
 
   .about__box {
-    width: 250px;
-    font-size: 13px;
+    top: 50px;
+    width: 290px;
+    font-size: 14px;
   }
 
   .about__box p {
-    font-size: 11px;
+    margin: 0;
+    font-size: 14px;
   }
 
   .sidebar {
