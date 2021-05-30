@@ -3,7 +3,6 @@ body {
 }
 
 h1 {
-  margin: 0;
   font-size: 100px;
   letter-spacing: 2px;
   font-family: "Reggae One", cursive;
@@ -63,8 +62,7 @@ p {
 /* ......................... */
 
 .header {
-  padding-top: 80px;
-  padding-bottom: 50px;
+  padding-top: 100px;
 }
 
 .main__page {
@@ -101,9 +99,6 @@ p {
   z-index: 9;
 }
 
-.about__box p {
-  font-size: 17px;
-}
 
 .about__box ul {
   padding-left: 50px;
@@ -144,6 +139,7 @@ p {
 
 .game__page {
   display: flex;
+  min-height: 100vh;
   text-align: center;
 
   background-image: linear-gradient(

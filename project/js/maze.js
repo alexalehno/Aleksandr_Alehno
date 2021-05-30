@@ -1,13 +1,13 @@
 "use strict";
 
-const TRACTOR_NUMBER = 3;
+const WORM_NUMBER = 3;
 const DELAY_TIMEOUT = 5;
 
 const WALL_COLOR = "black";
 const TUNNEL_COLOR = "white";
-const TRACTOR_COLOR = "rgb(153, 2, 2)";
+const WORM_COLOR = "rgb(153, 2, 2)";
 const BACKGROUND_COLOR = "black";
-
+ 
 
 let ROWS = 11;
 let COLUMNS = ROWS;
@@ -81,22 +81,22 @@ const drawMaze = () => {
   );
 };
 
-const moveTractor = (tractor) => {
+const moveTractor = (worm) => {
   const directions = [];
 
-  if (tractor.x > 0) directions.push([-2, 0]);
-  if (tractor.x < COLUMNS - 1) directions.push([2, 0]);
-  if (tractor.y > 0) directions.push([0, -2]);
-  if (tractor.y < ROWS - 1) directions.push([0, 2]);
+  if (worm.x > 0) directions.push([-2, 0]);
+  if (worm.x < COLUMNS - 1) directions.push([2, 0]);
+  if (worm.y > 0) directions.push([0, -2]);
+  if (worm.y < ROWS - 1) directions.push([0, 2]);
 
   const [dx, dy] = getRandomItem(directions);
 
-  tractor.x += dx;
-  tractor.y += dy;
+  worm.x += dx;
+  worm.y += dy;
 
-  if (!matrix[tractor.y][tractor.x]) {
-    matrix[tractor.y][tractor.x] = true;
-    matrix[tractor.y - dy / 2][tractor.x - dx / 2] = true;
+  if (!matrix[worm.y][worm.x]) {
+    matrix[worm.y][worm.x] = true;
+    matrix[worm.y - dy / 2][worm.x - dx / 2] = true;
   }
 };
 
@@ -119,7 +119,7 @@ const createMatrix = (columns, rows) => {
 // ///////////////////////////////////////////////
 
 async function buildMaze() {
-  let tractors = null;
+  let worms = null;
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
 
@@ -127,26 +127,26 @@ async function buildMaze() {
   matrix = createMatrix(COLUMNS, ROWS);
   matrix[0][0] = true;
 
-  tractors = [];
+  worms = [];
 
-  for (let i = 0; i < TRACTOR_NUMBER; i++) {
-    tractors.push({ x: 0, y: 0 });
+  for (let i = 0; i < WORM_NUMBER; i++) {
+    worms.push({ x: 0, y: 0 });
   }
 
   while (!isValidMaze()) {
-    for (const tractor of tractors) {
-      moveTractor(tractor);
+    for (const worm of worms) {
+      moveTractor(worm);
     }
 
     drawMaze();
 
-    for (const tractor of tractors) {
+    for (const worm of worms) {
       drawSquare(
-        PADDING + tractor.x * CELL_SIZE,
-        PADDING + tractor.y * CELL_SIZE,
+        PADDING + worm.x * CELL_SIZE,
+        PADDING + worm.y * CELL_SIZE,
         CELL_SIZE,
         CELL_SIZE,
-        TRACTOR_COLOR
+        WORM_COLOR
       );
     }
 
