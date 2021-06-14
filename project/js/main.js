@@ -85,7 +85,6 @@ const update = () => {
   ball.style.top = `${y}px`;
 };
 
-
 const direction = (e) => {
   if (e) {
     switch (e.code) {
@@ -154,8 +153,6 @@ const motion = (e) => {
 
   keepСount();
 };
-
-////////////////////////////////////////////////////////////////////////////////////
 
 const rebuild = () => {
   stop();
