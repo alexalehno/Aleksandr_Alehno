@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="cheque hidden">
+      <h3>Order</h3>
+      <div class="inner"></div>
+      <button class="ok_btn">Ok</button>
+    </div>
+
+    <form action="#" class="order_terminal">
+      <h3>Закажите пиццу</h3>
+
+      <label for="type">Тип</label>
+      <select id="type">
+        <option hidden></option>
+        <option>Пепперони</option>
+        <option>Деревенская</option>
+        <option>Гавайская</option>
+        <option>Грибная</option>
+      </select>
+
+      <label for="size">Размер</label>
+      <select id="size" disabled>
+        <option hidden></option>
+        <option>21</option>
+        <option>26</option>
+        <option>31</option>
+        <option>45</option>
+      </select>
+
+      <label for="sauce">Соусы</label>
+      <select id="sauce" disabled>
+        <option hidden></option>
+        <option>сырный</option>
+        <option>кисло-сладкий</option>
+        <option>чесночный</option>
+        <option>барбекю</option>
+      </select>
+
+      <button class="order_btn">Заказать</button>
+    </form>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
