@@ -5,7 +5,6 @@ body {
 
 h2,
 h3 {
-  font-family: "Roboto", sans-serif;
   font-weight: 500;
 }
 
@@ -54,7 +53,7 @@ li {
 }
 
 .head-news-banner {
-  flex-grow: 2;
+  flex-grow: 1;
   background-image: url("./media//image/main-news-banner.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -377,9 +376,10 @@ li {
   .about-item {
     margin-bottom: 20px;
   }
-  
+
   .about-list a {
     border-radius: 50px;
+    border: 2px solid;
     padding: 10px;
     background-color: rgb(70 70 26);
     box-shadow: 4px 3px 16px 1px rgb(0 0 0 / 90%);
