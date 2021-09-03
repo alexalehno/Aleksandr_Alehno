@@ -191,7 +191,6 @@ li {
   background-color: rgba(97, 114, 197, 0.5);
 }
 
-/* /////////////////////////////////////////// */
 .line-news {
   display: flex;
   justify-content: center;
@@ -327,7 +326,7 @@ li {
 @media all and (max-width: 800px) {
   .news-header {
     width: 250px;
-    margin: 20px auto;
+    margin: 20px auto 30px;
     font-size: 30px;
   }
 
@@ -378,9 +377,20 @@ li {
   .about-item {
     margin-bottom: 20px;
   }
+  
+  .about-list a {
+    border-radius: 50px;
+    padding: 10px;
+    background-color: rgb(70 70 26);
+    box-shadow: 4px 3px 16px 1px rgb(0 0 0 / 90%);
+  }
 }
 
 @media all and (max-width: 600px) {
+
+  .main-news-section {
+    padding: 5px 0;
+  }
   .container {
     padding: 5px;
   }
