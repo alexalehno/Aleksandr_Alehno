@@ -44,21 +44,21 @@ const levelStore = {
     quantityCells: 11,
     sizeCell: 55,
     sizeBall: 30,
-    incr: 2,
+    incr: 0.6,
     bgMusic: bgMusicLevel1,
   },
   Nightmare: {
     quantityCells: 19,
     sizeCell: 50,
     sizeBall: 30,
-    incr: 3,
+    incr: 1,
     bgMusic: bgMusicLevel2,
   },
   Madness: {
     quantityCells: 27,
     sizeCell: 44,
     sizeBall: 25,
-    incr: 3,
+    incr: 1,
     bgMusic: bgMusicLevel3,
   },
 };
@@ -71,7 +71,7 @@ let y = null;
 
 let score = 0;
 let sizeBall = 30;
-let incr = 2;
+let incr = 0.6;
 let bgMusic = bgMusicLevel1;
 
 
@@ -266,7 +266,7 @@ function keepСount() {
   if (cellX === ROWS - 1 && cellY === COLUMNS - 1) {
     ROWS += 2;
     COLUMNS += 2;
-    incr += 0.3;
+    incr += 0.1;
     score++;
     gamerScore.innerText = score;
     winSound.play();
