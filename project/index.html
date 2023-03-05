@@ -1,132 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" type="ico/png" href="./media/f_maze.svg" />
-    <link rel="stylesheet" href="./style/style.css" />
-    <title>Maze Runner</title>
-  </head>
-  <body>
 
-    <div class="app">
-      <!-- ..................   MAIN PAGE ...................... -->
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" type="ico/png" href="./media/f_maze.svg" />
+  <link rel="stylesheet" href="./style/styles.css" />
+  <title>Maze Runner</title>
+</head>
 
-      <div class="main__page">
+<body>
 
-        <div class="header">
-          <h1>MAZE RUNNER</h1>
-        </div>
-        
+  <div class="app">
+    <!-- ..................   MAIN PAGE ...................... -->
+    <div class="main-page">
+      <div class="main-content">
+        <h1 class="main-title">MAZE RUNNER</h1>
 
-        <ul>
-          <li><a href="" class="control__btn" id="start">Go</a></li>
-          <li><a href="" class="control__btn" id="records">Records</a></li>
-          <li><a href="" class="control__btn" id="about__bnt">About</a></li>
+        <ul class="control-list">
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="start">Go</a>
+          </li>
 
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="records">Records</a>
+          </li>
+
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="about">About</a>
+          </li>
         </ul>
-
-        <div class="records hidden__box">
-          <div class="close__box" id="close__records-box">
-            <span class="cross one"></span>
-            <span class="cross two"></span>
-          </div>
-
-          <h3>Records</h3>
-
-          <div class="records__content"></div>
-
-        </div>
-
-        <div class="about__box hidden__box">
-          <div class="close__box" id="close__about-box">
-            <span class="cross one"></span>
-            <span class="cross two"></span>
-          </div>
-
-          <h3>Сontrol</h2>
-
-          <ul>
-            <li>Movement: &ensp; &#8592; &#8594; 	&#8595; &#8593; </li>
-            <li> Pause: &ensp; &laquo;spase&raquo;</li>
-          </ul>
-         
-          <h3>About</h3>
-          <p>The Aldous-Broder algorithm was developed independently by both David
-            Aldous, a professor at UC Berkeley, and Andrei Broder. The idea is just this: Start anywhere in the grid you want,
-            and choose a random neighbor. Move to that neighbor, and if it hasn’t previously been visited, link it to the prior cell. Repeat until every cell has been visited.
-             It’s that random walk, the aimless, directionless meandering
-            from cell to cell, that is at the root of this algorithm’s ability to avoid being
-            biased. Sadly, as we’ll see it also means that it can take a long time to run.
-           </p>
-        </div>
       </div>
 
-
-      <!-- ..................   GAME PAGE ...................... -->
-
-      <div class="game__page hidden ">
-
-        <form class="hidden__box" action="#"   id="form">
-          <input type="text" placeholder="Your name" id="gamer__name"> 
-          <button id="send__btn">Save Me</button>
-        </form>
-
-        <div class="level__box hidden__box">
-          <div class="close__box" id="close__level-box">
-            <span class="cross one"></span>
-            <span class="cross two"></span>
-          </div>
-  
-          <ul>
-            <li><a href="" class="level__choice_btn active">Silence</a></li>
-            <li><a href="" class="level__choice_btn">Nightmare</a></li>
-            <li><a href="" class="level__choice_btn">Madness</a></li>
-          </ul>
+      <div class="records hidden__box">
+        <div class="close-btn" id="close__records-box">
+          <span class="close-btn__line-one"></span>
+          <span class="close-btn__line-two"></span>
         </div>
 
-        <div class="sidebar ">
-          <ul>
-            <li><a href="" class="control__btn sidebar__btn" id="main__page_btn">Main Page</a></li>
-            <li><a href="" class="control__btn sidebar__btn" id="new__game_btn">New Game</a> </li>        
-            <li><a href="" class="control__btn sidebar__btn" id="level__btn">Level</a></li>
-            <li><a href="" class="control__btn sidebar__btn" id="sound">Sound</a></li>
-            <li><a href="" class="control__btn sidebar__btn" id="save_btn">Save</a></li>
+        <h3 class="records-title">Records</h3>
 
-          </ul>
-
-          <div class="score__box">
-            <p>Score:</p>
-            <div class="score" id="gamer__score"></div>
-          </div>
-        </div>
-        
-        <div class="burger__menu">
-          <span class="burger__line_top"></span>
-          <span class="burger__line_bottom"></span>
-        </div>
-
-        <div class="field">
-          <canvas></canvas>
-          <div class="ball"></div>
-        </div>
-
+        <ol class="records-content"></ol>
       </div>
 
+      <div class="about hidden__box">
+        <div class="close-btn" id="close__about-box">
+          <span class="close-btn__line-one"></span>
+          <span class="close-btn__line-two"></span>
+        </div>
+
+        <h3 class="about-title">Control</h2>
+          <ul class="about-control">
+            <li class="about-control__item">Movement: &ensp; &#8592; &#8594; &#8595; &#8593; </li>
+            <li class="about-control__item"> Pause: &ensp; &laquo;spase&raquo;</li>
+          </ul>
+
+          <h3 class="about-title">About</h3>
+          <p class="about-discription">The Aldous-Broder algorithm was developed independently by both David
+            Aldous, a professor at UC Berkeley, and Andrei Broder. The idea is just this: Start anywhere in the grid you
+            want,
+            and choose a random neighbor. Move to that neighbor, and if it hasn't previously been visited, link it to
+            the prior cell. Repeat until every cell has been visited.
+            It's that random walk, the aimless, directionless meandering
+            from cell to cell, that is at the root of this algorithm's ability to avoid being
+            biased. Sadly, as we'll see it also means that it can take a long time to run.
+          </p>
+      </div>
     </div>
 
+    <!-- ..................   GAME PAGE ...................... -->
+    <div class="game-page hidden ">
+      <div class="sidebar">
+        <ul class="control-list">
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="main__page_btn">Main Page</a>
+          </li>
 
-    <script src="./js/jquery3.6.0.js"></script>
-    <script src="./js/results.js"></script>
-    <script src="./js/maze.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/SPA.js"></script>
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="new__game_btn">New Game</a>
+          </li>
 
-  </body>
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="level__btn">Level</a>
+          </li>
+
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="sound">Sound</a>
+          </li>
+
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="save_btn">Save</a>
+          </li>
+        </ul>
+
+        <div class="score">
+          <span class="score__name">Score:</span>
+          <div class="score__value" id="gamer__score"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <canvas></canvas>
+        <div class="ball"></div>
+      </div>
+
+      <div class="burger-menu">
+        <span class="burger-menu__line burger-menu__line_top"></span>
+        <span class="burger-menu__line burger-menu__line_bottom"></span>
+      </div>
+
+      <div class="levels hidden__box">
+        <div class="close-btn" id="close__level-box">
+          <span class="close-btn__line-one"></span>
+          <span class="close-btn__line-two"></span>
+        </div>
+
+        <ul class="levels-list">
+          <li class="levels-list__item">
+            <a href="#" class="levels-list__btn active">Silence</a>
+          </li>
+
+          <li class="levels-list__item">
+            <a href="#" class="levels-list__btn">Nightmare</a>
+          </li>
+
+          <li class="levels-list__item">
+            <a href="#" class="levels-list__btn">Madness</a>
+          </li>
+        </ul>
+      </div>
+
+      <form class="save-form hidden__box" action="#" id="form">
+        <input class="save-form__input" type="text" placeholder="Your name" id="gamer__name">
+        <button class="save-form__btn" id="send__btn">Save Me</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./js/jquery3.6.0.js"></script>
+  <script src="./js/results.js"></script>
+  <script src="./js/maze.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/SPA.js"></script>
+</body>
+
 </html>

@@ -1,18 +1,21 @@
 "use strict";
 
-window.addEventListener("beforeunload", befUnload);
+const mainPage = document.querySelector(".main-page");
+const gamePage = document.querySelector(".game-page");
 
-function befUnload(e) {
+let SPAState = {};
+
+switchToStateFromURLHash();
+
+window.addEventListener("beforeunload", (e) => {
   e = e || window.event;
-  if (gamerScore.innerText !== "" && score !== 0)
+  if (gamerScore.innerText !== "" && score !== 0) {
     e.returnValue = "А у вас есть несохранённые изменения!";
-}
-
-//..............................................................
+  }
+});
 
 window.addEventListener("hashchange", switchToStateFromURLHash);
 
-let SPAState = {};
 
 function switchToStateFromURLHash() {
   let URLHash = window.location.hash;
@@ -50,5 +53,3 @@ function switchToMainPage() {
 function switchToGamePage() {
   switchToState({ pagename: "Game" });
 }
-
-switchToStateFromURLHash();

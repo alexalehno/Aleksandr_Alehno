@@ -1,18 +1,10 @@
 "use strict";
 
-const mainPage = document.querySelector(".main__page");
-const startBtn = document.querySelector("#start");
-const recordsBox = document.querySelector(".records");
-const recordsBtn = document.querySelector("#records");
-const aboutBox = document.querySelector(".about__box");
-const aboutBtn = document.querySelector("#about__bnt");
-
-const gamePage = document.querySelector(".game__page");
 const mainPageBtn = document.querySelector("#main__page_btn");
 const newGameBtn = document.querySelector("#new__game_btn");
-const levelBox = document.querySelector(".level__box");
+const levelBox = document.querySelector(".levels");
 const levelBtn = document.querySelector("#level__btn");
-const levelСhoiceBtn = document.querySelectorAll(".level__choice_btn");
+const levelСhoiceBtn = document.querySelectorAll(".levels-list__btn");
 const saveBtn = document.querySelector("#save_btn");
 const form = document.querySelector("#form");
 const controlBtn = document.querySelectorAll(".control__btn");
@@ -24,9 +16,50 @@ const ball = document.querySelector(".ball");
 
 const soundBtn = document.querySelector("#sound");
 
-const burgerMenu = document.querySelector(".burger__menu");
+const burgerMenu = document.querySelector(".burger-menu");
 const sideBar = document.querySelector(".sidebar");
 
+// .....................................................
+// .....................................................
+// .....................................................
+
+
+const recordsBox = document.querySelector(".records");
+const aboutBox = document.querySelector(".about");
+// .....................................................
+
+const startBtn = document.querySelector("#start");
+const recordsBtn = document.querySelector("#records");
+const aboutBtn = document.querySelector("#about");
+
+
+
+startBtn.addEventListener("click", () => {
+  switchToGamePage();
+  soundControl(bgMusic);
+});
+
+recordsBtn.addEventListener("click", showRecordsBox);
+aboutBtn.addEventListener("click", showAboutBox);
+
+function showRecordsBox() {
+  refreshMessages();
+
+  document
+    .querySelector("#close__records-box")
+    .addEventListener("click", () => recordsBox.classList.add("hidden__box"));
+  recordsBox.classList.toggle("hidden__box");
+}
+
+function showAboutBox() {
+  document
+    .querySelector("#close__about-box")
+    .addEventListener("click", () => aboutBox.classList.add("hidden__box"));
+  aboutBox.classList.toggle("hidden__box");
+}
+// .....................................................
+// .....................................................
+// .....................................................
 
 const winSound = new Audio("./media/win.mp3");
 winSound.volume = 0.8;
@@ -185,9 +218,9 @@ function stopMusic() {
 function soundPause(bgMusic) {
   if (!bgMusic.paused) {
     stopMusic();
-    soundBtn.classList.add("sound__pause");
+    soundBtn.classList.add("sound-pause");
   } else {
-    soundBtn.classList.remove("sound__pause");
+    soundBtn.classList.remove("sound-pause");
     bgMusic.play();
   }
 }
@@ -202,22 +235,6 @@ function soundControl(bgMusic) {
   }
 }
 
-function showRecordsBox() {
-  refreshMessages();
-
-  document
-    .querySelector("#close__records-box")
-    .addEventListener("click", () => recordsBox.classList.add("hidden__box"));
-
-  recordsBox.classList.toggle("hidden__box");
-}
-
-function showAboutBox() {
-  document
-    .querySelector("#close__about-box")
-    .addEventListener("click", () => aboutBox.classList.add("hidden__box"));
-  aboutBox.classList.toggle("hidden__box");
-}
 
 function showLevelBox() {
   document
@@ -293,8 +310,8 @@ form.addEventListener("submit", (e) => e.preventDefault());
 controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));
 levelBtn.addEventListener("click", showLevelBox);
 levelBox.addEventListener("click", (e) => setLevel(e));
-aboutBtn.addEventListener("click", showAboutBox);
-recordsBtn.addEventListener("click", showRecordsBox);
+
+
 newGameBtn.addEventListener("click", newGame);
 soundBtn.addEventListener("click", () => soundPause(bgMusic));
 
@@ -306,10 +323,7 @@ document.querySelectorAll("a").forEach((el) => {
   el.addEventListener("click", (e) => e.preventDefault());
 });
 
-startBtn.addEventListener("click", () => {
-  switchToGamePage();
-  soundControl(bgMusic);
-});
+
 
 mainPageBtn.addEventListener("click", () => {
   stop();
@@ -318,6 +332,6 @@ mainPageBtn.addEventListener("click", () => {
 });
 
 burgerMenu.addEventListener("click", () => {
-  burgerMenu.classList.toggle("menu__active");
+  burgerMenu.classList.toggle("menu-active");
   sideBar.classList.toggle("sidebar__hidden");
 });

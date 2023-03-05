@@ -1,0 +1,163 @@
+.game-page {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  overflow: auto;
+  text-align: center;
+  background-image: linear-gradient(25deg, rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0.9) 50%), url("../media/maze.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: 0.4s;
+  z-index: 85;
+}
+
+.score {
+  width: 150px;
+  height: 75px;
+  margin: 35px auto 0;
+  color: rgb(153, 2, 2);
+  font-size: 25px;
+  font-family: "Reggae One", cursive;
+  background-color: white;
+}
+
+.field {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.ball {
+  position: absolute;
+  display: inline-block;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 90%);
+}
+
+.levels {
+  position: absolute;
+  display: inline-block;
+  top: 200px;
+  left: 170px;
+  padding: 5px 40px 20px;
+  font-size: 28px;
+  background-color: rgb(151, 151, 150);
+  box-shadow: 0 0 15px rgb(24 22 22);
+  z-index: 99;
+  transition: 0.6s;
+}
+
+.levels-list {
+  padding: 0;
+}
+
+.levels-list__item {
+  list-style: none;
+}
+
+.levels-list__btn {
+  display: block;
+  margin: 25px 0;
+  font-family: "Reggae One", cursive;
+  color: rgb(153, 2, 2);
+  text-shadow: 4px 0px 10px rgb(255 0 0 / 50%);
+  outline: none;
+  transition: transform 0.3s;
+}
+
+.levels-list__btn.active {
+  transform: scale(1.4);
+  color: white;
+}
+
+.levels-list__btn:hover {
+  transform: scale(1.4);
+  color: white;
+}
+
+.sound-pause {
+  text-decoration: line-through;
+}
+
+.save-form {
+  position: absolute;
+  top: 30%;
+  padding: 20px;
+  margin: 20px;
+  background-color: gray;
+  box-shadow: 0 0 4px rgb(24 22 22);
+  transition: 0.5s;
+  z-index: 111;
+}
+
+.save-form__input {
+  display: block;
+  width: 250px;
+  margin: 0 auto 20px;
+  border: none;
+  outline: none;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(153, 2, 2);
+  background-color: rgb(219, 219, 219);
+  box-shadow: 0 0 4px rgb(24 22 22);
+}
+
+.save-form__btn {
+  display: inline-block;
+  width: 80px;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(153, 2, 2);
+  background-color: rgb(219, 219, 219);
+  box-shadow: 0 0 4px rgb(24 22 22);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-form__btn:hover {
+  color: white;
+  background-color: rgb(153, 2, 2);
+}
+
+.ball {
+  animation: pulse 0.8s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite alternate both;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.7);
+    background-color: rgb(141, 141, 141);
+    box-shadow: 0 0 2px black;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0 0 20px rgb(34, 0, 129);
+  }
+}
+
+
+.hidden {
+  display: none;
+}
+
+.hidden__box {
+  top: -200%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+}

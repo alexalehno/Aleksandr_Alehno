@@ -1,0 +1,32 @@
+.burger-menu {
+  position: absolute;
+  left: 0;
+  top: -7px;
+  display: none;
+  margin: 10px;
+  z-index: 999;
+  cursor: pointer;
+  transition: 0.4s;
+  outline: none;
+}
+
+.burger-menu__line {
+  display: block;
+  width: 45px;
+  height: 9px;
+  margin-top: 10px;
+  transition: 0.4s;
+  background-color: rgb(153 2 2);
+}
+
+.menu-active {
+  left: 95px;
+}
+
+.menu-active .burger-menu__line_top {
+  transform: rotate(45deg) translate(13px) scale(0.7);
+}
+
+.menu-active .burger-menu__line_bottom {
+  transform: rotate(-45deg) translate(13px) scale(0.7);
+}

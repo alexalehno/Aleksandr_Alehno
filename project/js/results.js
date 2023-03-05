@@ -16,11 +16,13 @@ function showMessages() {
   let str = "";
   for (let i = 0; i < messages.length; i++) {
     let message = messages[i];
-    str += `<div><span>${i + 1}. ${escapeHTML(
-      message.name
-    )}</span> ${escapeHTML(message.mess)}</div>`;
+    str += `
+    <li class="records-content__item">
+      <span>${i + 1}. ${escapeHTML(message.name)}</span>
+      <span>${escapeHTML(message.mess)}</span>
+    </li>`;
   }
-  document.querySelector(".records__content").innerHTML = str;
+  document.querySelector(".records-content").innerHTML = str;
 }
 
 function escapeHTML(text) {
@@ -104,13 +106,13 @@ function lockGetReady(callresult) {
     messages.push({ name: gamerName, mess: gamerScore });
 
     messages.sort(compare);
-    
-    if (messages.length > 10) messages = messages.slice(-messages.length,  10);
-    
+
+    if (messages.length > 10) messages = messages.slice(-messages.length, 10);
+
 
     showMessages();
     resetPoints();
-    
+
     $.ajax({
       url: ajaxHandlerScript,
       type: "POST",
