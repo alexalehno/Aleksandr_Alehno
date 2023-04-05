@@ -19,26 +19,13 @@
 }
 
 .score {
-  width: 150px;
+  width: 125px;
   height: 75px;
-  margin: 35px auto 0;
+  margin: 30px auto 0;
   color: rgb(153, 2, 2);
   font-size: 25px;
   font-family: "Reggae One", cursive;
   background-color: white;
-}
-
-.field {
-  position: relative;
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.ball {
-  position: absolute;
-  display: inline-block;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 90%);
 }
 
 .levels {
@@ -51,7 +38,7 @@
   background-color: rgb(151, 151, 150);
   box-shadow: 0 0 15px rgb(24 22 22);
   z-index: 99;
-  transition: 0.6s;
+  transition: 0.3s;
 }
 
 .levels-list {
@@ -59,12 +46,12 @@
 }
 
 .levels-list__item {
+  margin: 15px 0;
   list-style: none;
 }
 
 .levels-list__btn {
   display: block;
-  margin: 25px 0;
   font-family: "Reggae One", cursive;
   color: rgb(153, 2, 2);
   text-shadow: 4px 0px 10px rgb(255 0 0 / 50%);
@@ -72,7 +59,7 @@
   transition: transform 0.3s;
 }
 
-.levels-list__btn.active {
+.level-active {
   transform: scale(1.4);
   color: white;
 }
@@ -83,17 +70,18 @@
 }
 
 .sound-pause {
+  opacity: 0.5;
   text-decoration: line-through;
 }
 
 .save-form {
   position: absolute;
   top: 30%;
-  padding: 20px;
-  margin: 20px;
+  left: 155px;
+  padding: 35px 20px 20px;
   background-color: gray;
   box-shadow: 0 0 4px rgb(24 22 22);
-  transition: 0.5s;
+  transition: 0.3s;
   z-index: 111;
 }
 
@@ -132,7 +120,17 @@
   background-color: rgb(153, 2, 2);
 }
 
+.field {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
 .ball {
+  position: absolute;
+  display: inline-block;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 90%);
   animation: pulse 0.8s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite alternate both;
 }
 
@@ -150,7 +148,6 @@
   }
 }
 
-
 .hidden {
   display: none;
 }
@@ -160,4 +157,23 @@
   opacity: 0;
   visibility: hidden;
   z-index: -1;
+}
+
+.notification {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: #f6ff00;
+  font-size: 200px;
+  font-family: "Reggae One", cursive;
+  text-shadow: 5px 5px 20px rgb(0, 0, 0);
+  z-index: 999;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.visibility {
+  opacity: 1;
 }

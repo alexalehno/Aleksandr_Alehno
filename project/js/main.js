@@ -1,158 +1,247 @@
 "use strict";
 
-const mainPageBtn = document.querySelector("#main__page_btn");
-const newGameBtn = document.querySelector("#new__game_btn");
-const levelBox = document.querySelector(".levels");
-const levelBtn = document.querySelector("#level__btn");
-const levelСhoiceBtn = document.querySelectorAll(".levels-list__btn");
-const saveBtn = document.querySelector("#save_btn");
-const form = document.querySelector("#form");
-const controlBtn = document.querySelectorAll(".control__btn");
 
-const gamerScore = document.querySelector("#gamer__score");
-
-const field = document.querySelector(".field");
-const ball = document.querySelector(".ball");
-
-const soundBtn = document.querySelector("#sound");
-
-const burgerMenu = document.querySelector(".burger-menu");
-const sideBar = document.querySelector(".sidebar");
-
-// .....................................................
-// .....................................................
-// .....................................................
-
-
+const controlsMain = document.querySelector("#controls__main");
+const controlsGame = document.querySelector("#controls__game");
 const recordsBox = document.querySelector(".records");
 const aboutBox = document.querySelector(".about");
-// .....................................................
-
-const startBtn = document.querySelector("#start");
-const recordsBtn = document.querySelector("#records");
-const aboutBtn = document.querySelector("#about");
-
-
-
-startBtn.addEventListener("click", () => {
-  switchToGamePage();
-  soundControl(bgMusic);
-});
-
-recordsBtn.addEventListener("click", showRecordsBox);
-aboutBtn.addEventListener("click", showAboutBox);
-
-function showRecordsBox() {
-  refreshMessages();
-
-  document
-    .querySelector("#close__records-box")
-    .addEventListener("click", () => recordsBox.classList.add("hidden__box"));
-  recordsBox.classList.toggle("hidden__box");
-}
-
-function showAboutBox() {
-  document
-    .querySelector("#close__about-box")
-    .addEventListener("click", () => aboutBox.classList.add("hidden__box"));
-  aboutBox.classList.toggle("hidden__box");
-}
-// .....................................................
-// .....................................................
-// .....................................................
-
-const winSound = new Audio("./media/win.mp3");
-winSound.volume = 0.8;
-
-const bgMusicLevel1 = new Audio("./media/level1.mp3");
-const bgMusicLevel2 = new Audio("./media/level2.mp3");
-const bgMusicLevel3 = new Audio("./media/level3.mp3");
-
-bgMusicLevel1.volume = 0.2;
-bgMusicLevel3.volume = 0.4;
-
+const levelBox = document.querySelector(".levels");
+const field = document.querySelector(".field");
+const ball = document.querySelector(".ball");
+const soundBtn = document.querySelector('#sound');
+const gameScore = document.querySelector(".score__value");
+const burgerMenu = document.querySelector(".burger-menu");
+const sideBar = document.querySelector(".sidebar");
+const form = document.querySelector(".save-form");
+const sendBtn = form.querySelector(".save-form__btn");
+const formInput = form.querySelector(".save-form__input");
 
 const levelStore = {
   Silence: {
-    quantityCells: 11,
-    sizeCell: 55,
-    sizeBall: 30,
+    delayTime: 0,
+    wormNum: 2,
+    quantityCells: 15,
+    sizeCell: 42,
+    sizeBall: 23,
     incr: 0.6,
-    bgMusic: bgMusicLevel1,
+    musSrc: './media/mus1.mp3',
   },
+
   Nightmare: {
-    quantityCells: 19,
-    sizeCell: 50,
-    sizeBall: 30,
-    incr: 1,
-    bgMusic: bgMusicLevel2,
+    delayTime: 0,
+    wormNum: 3,
+    quantityCells: 21,
+    sizeCell: 36,
+    sizeBall: 20,
+    incr: 0.7,
+    musSrc: './media/mus2.mp3',
   },
+
   Madness: {
+    delayTime: 0,
+    wormNum: 10,
     quantityCells: 27,
-    sizeCell: 44,
-    sizeBall: 25,
-    incr: 1,
-    bgMusic: bgMusicLevel3,
+    sizeCell: 30,
+    sizeBall: 17,
+    incr: 0.8,
+    musSrc: './media/mus3.mp3',
   },
 };
 
 let timer = null;
 let cellX = null;
 let cellY = null;
-let x = null;
-let y = null;
-
+let ballX = null;
+let ballY = null;
+let currentLevel = 'Silence';
 let score = 0;
-let sizeBall = 30;
-let incr = 0.6;
-let bgMusic = bgMusicLevel1;
+let selectedLevel = null;
+let isMusPlay = false;
+let isMusReady = true;
+let playPromise;
+let sizeBall = levelStore[currentLevel].sizeBall;
+let incr = levelStore[currentLevel].incr;
 
+const musBg = new Audio(levelStore[currentLevel].musSrc);
+const musWin = new Audio('./media/mus0.mp3');
 
-const stop = () => cancelAnimationFrame(timer);
+changeBallCoord();
+setSizeBall();
+updateBall();
+setClassSoundBtn();
 
-const update = () => {
-  ball.style.width = `${sizeBall}px`;
-  ball.style.height = `${sizeBall}px`;
+document.querySelectorAll('.levels-list__btn').forEach(el => {
+  if (el.innerText === currentLevel) {
+    el.classList.add('level-active');
+    selectedLevel = el;
+  }
+});
 
-  ball.style.left = `${x}px`;
-  ball.style.top = `${y}px`;
-};
+// ...............................................................
 
-const direction = (e) => {
-  if (e) {
-    switch (e.code) {
-      case "ArrowUp":
-        y += -incr;
-        break;
-      case "ArrowDown":
-        y += incr;
-        break;
-      case "ArrowLeft":
-        x += -incr;
-        break;
-      case "ArrowRight":
-        x += incr;
-        break;
-      case "Space":
-        stop();
-        break;
+form.addEventListener("submit", (e) => e.preventDefault());
+formInput.addEventListener("keydown", (e) => e.stopPropagation());
+sendBtn.addEventListener("click", () => sendMessage());
+
+burgerMenu.addEventListener("click", function () {
+  this.classList.toggle("menu-active");
+  sideBar.classList.toggle("sidebar__hidden");
+});
+
+window.addEventListener("keydown", (e) => {
+  e.preventDefault();
+  motion(e);
+});
+
+// ...............main controls делегирование...........
+controlsMain.addEventListener('click', (e) => {
+  const btn = e.target.closest('a');
+
+  if (!btn) {
+    return;
+  }
+
+  e.preventDefault();
+
+  switch (btn.id) {
+    case 'start':
+      switchToGamePage();
+      musControl(musBg, true);
+      break;
+
+    case 'records':
+      refreshMessages();
+      showBox(recordsBox)
+      break;
+
+    case 'about':
+      showBox(aboutBox)
+      break;
+  }
+});
+
+// ...............game controls делегирование...........
+controlsGame.addEventListener('click', (e) => {
+  const btn = e.target.closest('a');
+
+  if (!btn) {
+    return;
+  }
+
+  e.preventDefault();
+
+  switch (btn.id) {
+    case 'main__page':
+      cancelAnimationFrame(timer);
+      switchToMainPage();
+      musControl(musBg, false);
+      break;
+
+    case 'new__game':
+      newGame();
+      break;
+
+    case 'levels':
+      showBox(levelBox);
+      break;
+
+    case 'sound':
+      musControl(musBg, !isMusPlay);
+      break;
+
+    case 'save':
+      showBox(form);
+      break;
+  }
+});
+
+// ...............level делегирование...................
+levelBox.addEventListener('click', (e) => {
+  const btn = e.target.closest('a');
+
+  if (!btn) {
+    return;
+  }
+
+  e.preventDefault();
+
+  if (!isValidMaze()) {
+    showNotification('p', 'notification', 'WAIT');
+    return;
+  }
+
+  currentLevel = btn.innerText;
+
+  DELAY_TIMEOUT = levelStore[currentLevel].delayTime;
+  WORM_NUMBER = levelStore[currentLevel].wormNum;
+  ROWS = levelStore[currentLevel].quantityCells;
+  COLUMNS = ROWS;
+  CELL_SIZE = levelStore[currentLevel].sizeCell;
+  PADDING = CELL_SIZE;
+
+  sizeBall = levelStore[currentLevel].sizeBall;
+  incr = levelStore[currentLevel].incr;
+
+  musBg.src = levelStore[currentLevel].musSrc;
+
+  cancelAnimationFrame(timer);
+  changeBallCoord();
+  setSizeBall();
+  updateBall();
+  buildMaze();
+  highlight(btn);
+  musControl(musBg, isMusPlay);
+
+  function highlight(el) {
+    if (selectedLevel) {
+      selectedLevel.classList.remove('level-active');
     }
+
+    selectedLevel = el;
+    selectedLevel.classList.add('level-active');
+  }
+});
+
+// ......................................................
+function direction(e) {
+  switch (e.code) {
+    case "ArrowUp":
+      ballY += -incr;
+      break;
+    case "ArrowDown":
+      ballY += incr;
+      break;
+    case "ArrowLeft":
+      ballX += -incr;
+      break;
+    case "ArrowRight":
+      ballX += incr;
+      break;
+    case "Space":
+      setTimeout(() => cancelAnimationFrame(timer), 0); //<===????
+      break;
   }
 };
 
-const collisionBorder = (e) => {
-  cellX = Math.floor(x / CELL_SIZE) - 1;
-  cellY = Math.floor(y / CELL_SIZE) - 1;
-  let offsetX = Math.floor((x + ball.clientWidth) / CELL_SIZE) - 1;
-  let offsetY = Math.floor((y + ball.clientHeight) / CELL_SIZE) - 1;
+function collisionBorder(e) {
+  cellX = Math.floor(ballX / CELL_SIZE) - 1;
+  cellY = Math.floor(ballY / CELL_SIZE) - 1;
 
-  if (y <= CELL_SIZE + 5) {
-    y += incr;
+  let offsetX = Math.floor((ballX + ball.clientWidth) / CELL_SIZE) - 1;
+  let offsetY = Math.floor((ballY + ball.clientHeight) / CELL_SIZE) - 1;
+
+  if (ballY <= CELL_SIZE + 3) {  // <===???
+    ballY += incr;
   }
 
-  if (y >= ROWS * CELL_SIZE + CELL_SIZE - ball.clientWidth - 5) {
-    y += -incr;
+  if (ballY >= ROWS * CELL_SIZE + CELL_SIZE - ball.clientWidth - 3) { // <===???
+    ballY += -incr;
   }
+
+  collisionInnerWall(ballY, "ArrowUp", incr);
+  collisionInnerWall(ballY, "ArrowDown", -incr);
+  collisionInnerWall(ballX, "ArrowLeft", incr);
+  collisionInnerWall(ballX, "ArrowRight", -incr);
 
   function collisionInnerWall(xy, arrow, incr) {
     if (
@@ -162,20 +251,15 @@ const collisionBorder = (e) => {
         !matrix[offsetY][offsetX]) &&
       e.code === arrow
     ) {
-      xy === x ? (x += incr) : (y += incr);
+      xy === ballX ? (ballX += incr) : (ballY += incr);
     }
   }
-
-  collisionInnerWall(y, "ArrowUp", incr);
-  collisionInnerWall(y, "ArrowDown", -incr);
-  collisionInnerWall(x, "ArrowLeft", incr);
-  collisionInnerWall(x, "ArrowRight", -incr);
 };
 
-const motion = (e) => {
+function motion(e) {
   direction(e);
   collisionBorder(e);
-  update();
+  updateBall();
 
   if (timer) {
     cancelAnimationFrame(timer);
@@ -184,154 +268,148 @@ const motion = (e) => {
 
   timer = requestAnimationFrame(() => motion(e));
 
-  keepСount();
+  keepScore();
 };
 
-const rebuild = () => {
-  stop();
-  initialSet();
-  buildMaze();
-};
+// ......................................................
 
-function mouseClick() {
-  this.style.backgroundColor = "red";
-  this.style.color = "white";
-
-  this.addEventListener("mouseup", () => {
-    this.style.backgroundColor = "";
-    this.style.color = "";
-  });
-}
-
-function initialSet() {
-  x = 10 + PADDING;
-  y = 10 + PADDING;
-  update();
-}
-
-function stopMusic() {
-  bgMusicLevel1.pause();
-  bgMusicLevel2.pause();
-  bgMusicLevel3.pause();
-}
-
-function soundPause(bgMusic) {
-  if (!bgMusic.paused) {
-    stopMusic();
-    soundBtn.classList.add("sound-pause");
-  } else {
-    soundBtn.classList.remove("sound-pause");
-    bgMusic.play();
-  }
-}
-
-function soundControl(bgMusic) {
-  bgMusic.loop = true;
-  bgMusic.currentTime = 0;
-  stopMusic();
-
-  if (!soundBtn.classList.contains("sound__pause")) {
-    bgMusic.play();
-  }
-}
-
-
-function showLevelBox() {
-  document
-    .querySelector("#close__level-box")
-    .addEventListener("click", () => levelBox.classList.add("hidden__box"));
-  levelBox.classList.toggle("hidden__box");
-}
-
-function showForm() {
-  document.querySelector("#send__btn").addEventListener("click", () => {
-    sendMessage();
-    form.classList.add("hidden__box");
-  });
-  form.classList.toggle("hidden__box");
-}
-
-function setLevel(e) {
-  function setChoice(p) {
-    if (e.target.innerText === p) {
-      for (let key in levelStore) {
-        if (key === p) {
-          CELL_SIZE = levelStore[key].sizeCell;
-          ROWS = levelStore[key].quantityCells;
-          COLUMNS = levelStore[key].quantityCells;
-          PADDING = levelStore[key].sizeCell;
-          sizeBall = levelStore[key].sizeBall;
-          incr = levelStore[key].incr;
-          bgMusic = levelStore[key].bgMusic;
-        }
-      }
-
-      levelСhoiceBtn.forEach((el) => el.classList.remove("active"));
-      e.target.classList.add("active");
-
-      rebuild();
-      soundControl(bgMusic);
-    }
-  }
-
-  setChoice("Silence");
-  setChoice("Nightmare");
-  setChoice("Madness");
-}
-
-function keepСount() {
+function keepScore() {
   if (cellX === ROWS - 1 && cellY === COLUMNS - 1) {
+
+    if (isMusPlay) {
+      musWin.play();
+    }
+
     ROWS += 2;
-    COLUMNS += 2;
+    COLUMNS = ROWS;
     incr += 0.1;
     score++;
-    gamerScore.innerText = score;
-    winSound.play();
-    rebuild();
-    stop();
+    gameScore.innerText = score;
+
+    cancelAnimationFrame(timer);
+    buildMaze();
+    changeBallCoord();
+    updateBall();
   }
-}
+};
+
+function newGame() {
+  if (!isValidMaze()) {
+    showNotification('p', 'notification', 'WAIT');
+    return;
+  }
+
+  cancelAnimationFrame(timer);
+  changeBallCoord();
+  updateBall();
+  buildMaze();
+  resetPoints();
+};
+
+function changeBallCoord() {
+  let sizeC = levelStore[currentLevel].sizeCell;
+  ballX = sizeC + sizeC / 2 - sizeBall / 2;
+  ballY = ballX;
+};
+
+function setSizeBall() {
+  ball.style.width = `${sizeBall}px`;
+  ball.style.height = `${sizeBall}px`;
+};
+
+function updateBall() {
+  ball.style.left = `${ballX}px`;
+  ball.style.top = `${ballY}px`;
+};
 
 function resetPoints() {
   score = 0;
-  gamerScore.innerText = "";
-}
+  gameScore.innerText = "";
+};
 
-function newGame() {
-  resetPoints();
-  rebuild();
-}
+function showBox(elem) {
+  const close = elem.querySelector(".close-btn");
 
-initialSet();
-update();
+  elem.classList.toggle("hidden__box");
+  close.addEventListener("click", () => elem.classList.add("hidden__box"));
+};
 
-window.addEventListener("keydown", (e) => motion(e));
-form.addEventListener("submit", (e) => e.preventDefault());
-controlBtn.forEach((el) => el.addEventListener("mousedown", mouseClick));
-levelBtn.addEventListener("click", showLevelBox);
-levelBox.addEventListener("click", (e) => setLevel(e));
+//...............sound................
 
+function musControl(mus, f) {
+  if (!isMusReady) {
+    return;
+  }
 
-newGameBtn.addEventListener("click", newGame);
-soundBtn.addEventListener("click", () => soundPause(bgMusic));
+  isMusPlay = f;
+  isMusReady = false;
 
-saveBtn.addEventListener("click", () => {
-  showForm();
-});
+  if (isMusPlay) {
+    mus.loop = true;
+    mus.currentTime = 0;
+    play(mus);
+  }
 
-document.querySelectorAll("a").forEach((el) => {
-  el.addEventListener("click", (e) => e.preventDefault());
-});
+  if (!isMusPlay && playPromise !== undefined) {
+    playPromise.then(() => pause(mus));
+  }
 
+  setClassSoundBtn();
+};
 
+function play(mus) {
+  mus.volume = 0;
+  playPromise = mus.play()
+    .then(() => smoothSound(mus, 0.02))
+    .then(() => isMusReady = true);
+};
 
-mainPageBtn.addEventListener("click", () => {
-  stop();
-  switchToMainPage();
-  stopMusic();
-});
+function pause(mus) {
+  smoothSound(mus, -0.02)
+    .then(() => {
+      mus.pause();
+      isMusReady = true;
+    });
+};
 
-burgerMenu.addEventListener("click", () => {
-  burgerMenu.classList.toggle("menu-active");
-  sideBar.classList.toggle("sidebar__hidden");
-});
+async function smoothSound(mus, inc) {
+  let vol = mus.volume;
+
+  while (true) {
+    await delay(0);
+
+    vol = +(vol + inc).toFixed(2);
+
+    if (vol > 1 || vol < 0) {
+      return;
+    }
+
+    mus.volume = vol;
+  }
+};
+
+function setClassSoundBtn() {
+  if (isMusPlay) {
+    soundBtn.classList.remove('sound-pause');
+  } else {
+    soundBtn.classList.add('sound-pause');
+  }
+};
+
+//...............Notification................
+
+async function showNotification(el, cls, t) {
+  let element = document.createElement(el);
+  element.classList.add(cls);
+  element.innerText = t;
+  document.querySelector('.field').append(element);
+
+  await delay(0);
+  element.classList.add('visibility');
+
+  await delay(700);
+  element.classList.remove('visibility');
+
+  await delay(300);
+  element.remove();
+};

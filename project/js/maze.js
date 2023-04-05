@@ -1,18 +1,16 @@
 "use strict";
 
-const WORM_NUMBER = 3;
-const DELAY_TIMEOUT = 0;
-
 const WALL_COLOR = "black";
 const TUNNEL_COLOR = "white";
 const WORM_COLOR = "rgb(153, 2, 2)";
 const BACKGROUND_COLOR = "black";
- 
 
-let ROWS = 11;
+let DELAY_TIMEOUT = levelStore[currentLevel].delayTime;
+let WORM_NUMBER = levelStore[currentLevel].wormNum;
+let ROWS = levelStore[currentLevel].quantityCells;
 let COLUMNS = ROWS;
-let CELL_SIZE = 55;
-let PADDING = 55;
+let CELL_SIZE = levelStore[currentLevel].sizeCell;
+let PADDING = CELL_SIZE;
 
 let matrix = null;
 let canvas = null;
@@ -70,7 +68,13 @@ const drawMaze = () => {
     }
   }
 
-  drawSquare(0, 0 + PADDING, CELL_SIZE, CELL_SIZE, "rgb(151, 151, 150)");
+  drawSquare(
+    0,
+    0 + PADDING,
+    CELL_SIZE,
+    CELL_SIZE,
+    "rgb(151, 151, 150)"
+  );
 
   drawSquare(
     PADDING * 2 + (matrix.length - 1) * CELL_SIZE,
@@ -101,7 +105,7 @@ const moveWorm = (worm) => {
 };
 
 const createMatrix = (columns, rows) => {
-  
+
   const matrix = [];
 
   for (let y = 0; y < rows; y++) {
@@ -122,7 +126,6 @@ async function buildMaze() {
   let worms = null;
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
-
 
   matrix = createMatrix(COLUMNS, ROWS);
   matrix[0][0] = true;
@@ -152,6 +155,7 @@ async function buildMaze() {
 
     await delay(DELAY_TIMEOUT);
   }
+  
   drawMaze();
 }
 

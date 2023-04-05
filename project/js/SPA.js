@@ -24,9 +24,11 @@ function switchToStateFromURLHash() {
 
   if (stateStr !== "") {
     let parts = stateStr.split("_");
-
     SPAState = { pagename: parts[0] };
-  } else SPAState = { pagename: "Main" };
+
+  } else {
+    SPAState = { pagename: "Main" };
+  }
 
   switch (SPAState.pagename) {
     case "Main":

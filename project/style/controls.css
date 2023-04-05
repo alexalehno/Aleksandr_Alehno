@@ -9,12 +9,12 @@
 
 .control-list__btn {
   display: inline-block;
-  width: 130px;
-  margin: 10px;
-  padding: 7px 10px;
+  width: 120px;
+  margin: 8px;
+  padding: 7px;
   border-radius: 10px;
   text-decoration: none;
-  font-size: 19px;
+  font-size: 17px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #626366;
   background-color: rgb(219, 219, 219);

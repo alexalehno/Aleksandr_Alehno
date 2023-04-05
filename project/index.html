@@ -20,7 +20,7 @@
       <div class="main-content">
         <h1 class="main-title">MAZE RUNNER</h1>
 
-        <ul class="control-list">
+        <ul class="control-list" id="controls__main">
           <li class="control-list__item">
             <a href="#" class="control-list__btn" id="start">Go</a>
           </li>
@@ -47,7 +47,7 @@
       </div>
 
       <div class="about hidden__box">
-        <div class="close-btn" id="close__about-box">
+        <div class="close-btn">
           <span class="close-btn__line-one"></span>
           <span class="close-btn__line-two"></span>
         </div>
@@ -74,31 +74,31 @@
     <!-- ..................   GAME PAGE ...................... -->
     <div class="game-page hidden ">
       <div class="sidebar">
-        <ul class="control-list">
+        <ul class="control-list" id="controls__game">
           <li class="control-list__item">
-            <a href="#" class="control-list__btn" id="main__page_btn">Main Page</a>
+            <a href="#" class="control-list__btn" id="main__page">Main Page</a>
           </li>
 
           <li class="control-list__item">
-            <a href="#" class="control-list__btn" id="new__game_btn">New Game</a>
+            <a href="#" class="control-list__btn" id="new__game">New Game</a>
           </li>
 
           <li class="control-list__item">
-            <a href="#" class="control-list__btn" id="level__btn">Level</a>
+            <a href="#" class="control-list__btn" id="levels">Level</a>
+          </li>
+
+          <li class="control-list__item">
+            <a href="#" class="control-list__btn" id="save">Save</a>
           </li>
 
           <li class="control-list__item">
             <a href="#" class="control-list__btn" id="sound">Sound</a>
           </li>
-
-          <li class="control-list__item">
-            <a href="#" class="control-list__btn" id="save_btn">Save</a>
-          </li>
         </ul>
 
         <div class="score">
           <span class="score__name">Score:</span>
-          <div class="score__value" id="gamer__score"></div>
+          <div class="score__value"></div>
         </div>
       </div>
 
@@ -120,7 +120,7 @@
 
         <ul class="levels-list">
           <li class="levels-list__item">
-            <a href="#" class="levels-list__btn active">Silence</a>
+            <a href="#" class="levels-list__btn">Silence</a>
           </li>
 
           <li class="levels-list__item">
@@ -134,17 +134,22 @@
       </div>
 
       <form class="save-form hidden__box" action="#" id="form">
-        <input class="save-form__input" type="text" placeholder="Your name" id="gamer__name">
-        <button class="save-form__btn" id="send__btn">Save Me</button>
+        <div class="close-btn" id="close__level-box">
+          <span class="close-btn__line-one"></span>
+          <span class="close-btn__line-two"></span>
+        </div>
+
+        <input class="save-form__input" type="text" placeholder="Your name">
+        <button class="save-form__btn" id="send__btn">Send Info</button>
       </form>
     </div>
   </div>
 
+  <script src="./js/SPA.js"></script>
   <script src="./js/jquery3.6.0.js"></script>
   <script src="./js/results.js"></script>
-  <script src="./js/maze.js"></script>
   <script src="./js/main.js"></script>
-  <script src="./js/SPA.js"></script>
+  <script src="./js/maze.js"></script>
 </body>
 
 </html>
