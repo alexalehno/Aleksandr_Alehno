@@ -15,6 +15,9 @@ const sideBar = document.querySelector(".sidebar");
 const form = document.querySelector(".save-form");
 const sendBtn = form.querySelector(".save-form__btn");
 const formInput = form.querySelector(".save-form__input");
+const moveBtnsBlock = document.querySelector(".move-btns");
+
+const classArr = ['hidden-left', 'hidden-left', 'hidden-right', 'hidden-right'];
 
 const levelStore = {
   Silence: {
@@ -61,6 +64,7 @@ let isMusReady = true;
 let playPromise;
 let sizeBall = levelStore[currentLevel].sizeBall;
 let incr = levelStore[currentLevel].incr;
+let arrowType;
 
 const musBg = new Audio(levelStore[currentLevel].musSrc);
 const musWin = new Audio('./media/mus0.mp3');
@@ -87,6 +91,16 @@ burgerMenu.addEventListener("click", function () {
   this.classList.toggle("menu-active");
   sideBar.classList.toggle("sidebar__hidden");
 });
+
+moveBtnsBlock.addEventListener('click', (e) => {
+  const btn = e.target.closest('BUTTON');
+
+  if (!btn) {
+    return;
+  }
+
+  motion(e);
+})
 
 window.addEventListener("keydown", (e) => {
   e.preventDefault();
@@ -152,6 +166,10 @@ controlsGame.addEventListener('click', (e) => {
     case 'save':
       showBox(form);
       break;
+
+    case 'buttons':
+      remClassMoveBtn(moveBtnsBlock.children);
+      break;
   }
 });
 
@@ -203,8 +221,23 @@ levelBox.addEventListener('click', (e) => {
 });
 
 // ......................................................
+async function remClassMoveBtn(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    await delay(150);
+    arr[i].classList.toggle(classArr[i]);
+  }
+}
+
 function direction(e) {
-  switch (e.code) {
+  if (e.type === 'keydown') {
+    arrowType = e.code;
+  }
+
+  if (e.type === 'click') {
+    arrowType = e.target.dataset.arrow;
+  }
+
+  switch (arrowType) {
     case "ArrowUp":
       ballY += -incr;
       break;
@@ -223,7 +256,7 @@ function direction(e) {
   }
 };
 
-function collisionBorder(e) {
+function collisionBorder() {
   cellX = Math.floor(ballX / CELL_SIZE) - 1;
   cellY = Math.floor(ballY / CELL_SIZE) - 1;
 
@@ -249,7 +282,7 @@ function collisionBorder(e) {
         !matrix[cellY][offsetX] ||
         !matrix[offsetY][cellX] ||
         !matrix[offsetY][offsetX]) &&
-      e.code === arrow
+      arrowType === arrow
     ) {
       xy === ballX ? (ballX += incr) : (ballY += incr);
     }
@@ -258,7 +291,7 @@ function collisionBorder(e) {
 
 function motion(e) {
   direction(e);
-  collisionBorder(e);
+  collisionBorder();
   updateBall();
 
   if (timer) {

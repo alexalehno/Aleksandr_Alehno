@@ -1,0 +1,58 @@
+.move-btns {
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 210px;
+  height: 150px;
+}
+
+.move-btns__btn {
+  position: absolute;
+  width: 70px;
+  height: 50px;
+  padding: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  font-size: 25px;
+  color: black;
+  background-color: rgb(7 183 255 / 60%);
+  box-shadow: 0 0 10px rgb(24 22 22);
+  transition: 0.4s;
+}
+
+.move-btns__btn-left {
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.move-btns__btn-top {
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+}
+
+.move-btns__btn-right {
+  left: 100%;
+  top: 50%;
+  transform: translate(-70px, -50%);
+}
+
+.move-btns__btn-bottom {
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -50px);
+}
+
+/* ................... */
+
+.hidden-left {
+  left: -400%;
+  top: -500%;
+}
+
+.hidden-right {
+  left: 500%;
+  top: -500%;
+}
