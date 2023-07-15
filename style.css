@@ -5,7 +5,7 @@ body {
 
 .wrapper {
   padding: 20px;
-  width: 320px;
+  width: fit-content;
   margin: 0 auto;
   background-color: rgb(230, 240, 240);
 }
